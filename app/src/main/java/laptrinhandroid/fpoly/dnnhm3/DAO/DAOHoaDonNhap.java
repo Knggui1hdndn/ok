@@ -1,5 +1,7 @@
 package laptrinhandroid.fpoly.dnnhm3.DAO;
 
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 
@@ -24,10 +26,10 @@ public class DAOHoaDonNhap {
         Statement statement=null;
         try{
             statement=objConn.createStatement();
-            String h1="insert into HoaDonNhapKho(maNV,maNcc,ngayNhap,tongTien) values ("
+            String h1="Insert into HoaDonNhapKho(maNV,maNcc,ngayNhap,tongTien) values ("
                     +hoaDonNhapKho.getMaNV()+","
                     +hoaDonNhapKho.getMaNCC()+",'"
-                    +simpleDateFormat.format(hoaDonNhapKho.getNgayNhap())+"',"
+                    +hoaDonNhapKho.getNgayNhap()+"',"
                     +hoaDonNhapKho.getTongTien()+")";
             if (statement.executeUpdate(h1)>0){
                 statement.close();
@@ -35,6 +37,7 @@ public class DAOHoaDonNhap {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Log.d("ssssssssw", "addHoaDon: "+e.getMessage());
         }
     return false;
     }

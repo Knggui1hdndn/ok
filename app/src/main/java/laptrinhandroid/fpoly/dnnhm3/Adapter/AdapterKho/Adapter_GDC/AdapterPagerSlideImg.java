@@ -13,26 +13,29 @@ import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class AdapterPagerSlideImg extends FragmentStateAdapter {
     private Activity activity;
+
     public AdapterPagerSlideImg(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
-        activity=fragmentActivity;
+        activity = fragmentActivity;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        FragmentSlideImg fragmentSlideImg=new FragmentSlideImg();
-        Bundle bundle=new Bundle();
-                switch (position) {
+        FragmentSlideImg fragmentSlideImg = new FragmentSlideImg();
+        Bundle bundle = new Bundle();
+        switch (position) {
             case 0:
-                bundle.putInt("img", R.drawable.tt);
+                bundle.putInt("img", R.drawable.a1);
                 break;
             case 1:
-                bundle.putInt("img", R.drawable.tt1);
-
+                bundle.putInt("img", R.drawable.a2);
                 break;
             case 2:
-                bundle.putInt("img", R.drawable.img_1);
+                bundle.putInt("img", R.drawable.a3);
+                break;
+            case 3:
+                bundle.putInt("img", R.drawable.a4);
 
                 break;
         }
@@ -43,6 +46,6 @@ public class AdapterPagerSlideImg extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }

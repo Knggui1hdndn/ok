@@ -1,7 +1,5 @@
 package laptrinhandroid.fpoly.dnnhm3.Activity;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -18,7 +16,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.CursorWindow;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,8 +27,6 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,12 +34,10 @@ import android.widget.Toast;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.textview.MaterialTextView;
 
-import java.lang.reflect.Field;
 import java.sql.SQLException;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
-import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.BottomSheetSelectImg;
 import laptrinhandroid.fpoly.dnnhm3.R;
 import laptrinhandroid.fpoly.dnnhm3.setImg;
@@ -158,7 +151,7 @@ public class ChiTietNhanVien extends AppCompatActivity implements setImg {
     }
 
     private void show() {
-        BottomSheetSelectImg bottomSheetSelectImg = new BottomSheetSelectImg(ChiTietNhanVien.this);
+        BottomSheetSelectImg bottomSheetSelectImg = new BottomSheetSelectImg(ChiTietNhanVien.this );
         bottomSheetSelectImg.show(getSupportFragmentManager(), "sss");
     }
 
@@ -175,11 +168,14 @@ public class ChiTietNhanVien extends AppCompatActivity implements setImg {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == PackageManager.PERMISSION_GRANTED && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
+            s = new SpannableString("Lưu");
+            s.setSpan(new ForegroundColorSpan(Color.BLUE), 0, s.length(), 0);
+            menuItem.setTitle(s);
+            menuItem.setEnabled(true);
             if (requestCode == 0) {
                 switch (i) {
                     case 1:
@@ -214,7 +210,6 @@ public class ChiTietNhanVien extends AppCompatActivity implements setImg {
                 }
             }
         }
-
     }
 
     private Bitmap setImg(ImageView imageView) {
@@ -280,6 +275,7 @@ public class ChiTietNhanVien extends AppCompatActivity implements setImg {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);//set icon menu
     }
 
+
     @Override
     public void check(int id) {
         if (id == R.id.btnLibrary) {
@@ -295,8 +291,7 @@ public class ChiTietNhanVien extends AppCompatActivity implements setImg {
                     startActivityForResult(gallery, 1);
                 } else {
                     ActivityCompat.requestPermissions(ChiTietNhanVien.this,
-                            new String[]{Manifest.permission.CAMERA},
-                            2);
+                            new String[]{Manifest.permission.CAMERA}, 2);
                 }
             }
         }

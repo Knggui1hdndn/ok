@@ -1,7 +1,5 @@
 package laptrinhandroid.fpoly.dnnhm3.Activity;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -12,14 +10,9 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,17 +20,13 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,18 +34,13 @@ import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.BottomSheetSelectImg;
 import laptrinhandroid.fpoly.dnnhm3.R;
 import laptrinhandroid.fpoly.dnnhm3.setImg;
@@ -75,6 +59,7 @@ public class AddNhanVien extends AppCompatActivity implements setImg {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_nhan_vien);
         avatar = findViewById(R.id.avatar);
         imgCCCD = findViewById(R.id.imgCCCD);
@@ -247,7 +232,7 @@ public class AddNhanVien extends AppCompatActivity implements setImg {
     }
 
     private void show() {
-        BottomSheetSelectImg bottomSheetSelectImg = new BottomSheetSelectImg(AddNhanVien.this);
+        BottomSheetSelectImg bottomSheetSelectImg = new BottomSheetSelectImg(AddNhanVien.this );
         bottomSheetSelectImg.show(getSupportFragmentManager(), "sss");
     }
 

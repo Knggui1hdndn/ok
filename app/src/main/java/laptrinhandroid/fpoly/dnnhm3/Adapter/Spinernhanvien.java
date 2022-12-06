@@ -12,8 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class Spinernhanvien  extends ArrayAdapter<NhanVien> {

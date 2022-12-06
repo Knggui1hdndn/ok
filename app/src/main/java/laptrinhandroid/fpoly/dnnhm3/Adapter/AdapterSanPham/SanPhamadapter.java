@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,26 +27,29 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOLoaiSanPham;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.LoaiSP;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.LoaiSP;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
-public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamViewHolder> {
+public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamViewHolder> implements Filterable {
     Context context;
-    ArrayList<SanPham> arrSP = new ArrayList<>();
+    ArrayList<SanPham> arrSP ;
+    ArrayList<SanPham> arrSP1 ;
     DAOSanPham daoSanPham=new DAOSanPham();
-    DAOLoaiSanPham daoLoaiSanPham=new DAOLoaiSanPham();
-    View viewAlert;
-    LayoutInflater inflater;
+
 
     public SanPhamadapter(Context context,  ArrayList<SanPham> arrSP) {
         this.context = context;
         this.arrSP = arrSP;
+        this.arrSP1=arrSP;
     }
+
     @NonNull
     @Override
     public SanPhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -90,17 +95,19 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
         ed_giavon = v.findViewById(R.id.ed_giavon);
         spn_loaiSP = v.findViewById(R.id.spn_danhmuc);
         btn_them = v.findViewById(R.id.btn_themsp);
-        btn_huy = v.findViewById(R.id.btn_huy);
+        btn_huy = v.findViewById(R.id.btn_huy);  v.findViewById(R.id.btn_themanhsp).setVisibility(View.GONE);
+        btn_them.setText("Cap nhat");
         List<String> loaiSP = new ArrayList<>();
         Dialog dialog=builder.create();
         dialog.show();
         try {
-            for (LoaiSP listLoaiSP : daoLoaiSanPham.getListLoaiSanPham()) {
+            for (LoaiSP listLoaiSP : new DAOLoaiSanPham().getListLoaiSanPham()) {
                 loaiSP.add(listLoaiSP.getMaLoai() + "." + listLoaiSP.getTenLoai());
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+            Log.d("fffffffffffffffff", "opendialog: "+e.getMessage());
+         }
         ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, loaiSP);
         spn_loaiSP.setAdapter(adapterLoaiSP);
 
@@ -113,9 +120,8 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
             sanPham.setGiaNhap(Float.parseFloat(ed_giavon.getText().toString()));
             sanPham.setGiaBan(Float.parseFloat(ed_giaban.getText().toString()));
             sanPham.setLoaiSP(Integer.parseInt(maloai[0]));
-            sanPham.setAnh("a");
-            Log.d("sssssssssssss", "dialogSanPham: "+sanPham);
-//            ((SanPhamActivity) context).addSP(sanPham);
+            sanPham.setAnh(sanPham.getAnh());
+ //            ((SanPhamActivity) context).addSP(sanPham);
             try {
                 if (daoSanPham.updateSanPham(sanPham)){
                     Toast.makeText(context, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show();
@@ -163,6 +169,38 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
     public int getItemCount() {
         return arrSP.size();
     }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strsearch = charSequence.toString();
+                if (strsearch.isEmpty()) {
+                    arrSP = arrSP1;
+                } else {
+                    List<SanPham> listabc = new ArrayList<>();
+                    for (SanPham hoaDonNhapKho1 : arrSP) {
+                         if (hoaDonNhapKho1.getTenSP().toLowerCase(Locale.ROOT).contains(strsearch.toLowerCase(Locale.ROOT))) {
+                            listabc.add(hoaDonNhapKho1);
+                        }
+                    }
+                    arrSP = (ArrayList<SanPham>) listabc;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arrSP;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                arrSP= (ArrayList<SanPham>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     public static class SanPhamViewHolder extends RecyclerView.ViewHolder{
         ImageView img_SP, img_delete;

@@ -10,6 +10,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:menu="@menu/item"
+      android:background="#8ED87C"
+      app:titleTextColor="@color/white"
       android:id="@+id/toobar1">
   </androidx.appcompat.widget.Toolbar>
 

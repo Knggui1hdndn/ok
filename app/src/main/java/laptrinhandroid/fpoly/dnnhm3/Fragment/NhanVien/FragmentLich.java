@@ -19,7 +19,6 @@ import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.GiaoDienChinh;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOChamCong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.DayViewDecoratorConfirmed;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.DayViewDecoratorNoConfirm;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.DayViewDecoratorUnconfirmed;

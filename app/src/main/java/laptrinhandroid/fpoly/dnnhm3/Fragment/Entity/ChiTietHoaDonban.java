@@ -1,4 +1,4 @@
-package laptrinhandroid.fpoly.dnnhm3.Entity;
+package laptrinhandroid.fpoly.dnnhm3.Fragment.Entity;
 
 import java.io.Serializable;
 
@@ -24,6 +24,16 @@ public class ChiTietHoaDonban implements Serializable {
     }
 
     public ChiTietHoaDonban() {
+    }
+
+    public ChiTietHoaDonban(int maHD, int maSp, String anh, String tenSP, int soLuong, float donGia, float thanhTien) {
+        this.maHD = maHD;
+        this.maSp = maSp;
+        this.anh = anh;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.thanhTien = thanhTien;
     }
 
     public ChiTietHoaDonban(int id, int maHD, int maSp, String anh, String tenSP, int soLuong, float donGia, float thanhTien) {

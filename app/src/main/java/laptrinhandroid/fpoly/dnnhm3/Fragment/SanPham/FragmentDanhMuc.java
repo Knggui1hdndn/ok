@@ -28,11 +28,9 @@ import java.util.ArrayList;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterSanPham.LoaiSanPhamAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOLoaiSanPham;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.LoaiSP;
- 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.LoaiSP;
 
- import laptrinhandroid.fpoly.dnnhm3.R;
+import laptrinhandroid.fpoly.dnnhm3.R;
 
 
 public class FragmentDanhMuc extends Fragment {
@@ -61,21 +59,16 @@ public class FragmentDanhMuc extends Fragment {
         try {
             list = (ArrayList<LoaiSP>) daoLoaiSanPham.getListLoaiSanPham();
             adapter = new LoaiSanPhamAdapter(getActivity());
-            adapter.setData(list);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(linearLayoutManager);
+            adapter.setData(list);
             recyclerView.setAdapter(adapter);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+            floatingActionButton.setOnClickListener(v -> insert_danhmuc());
 
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    insert_danhmuc();
-                }
-            });
-
-        }  return view;
+           return view;
     }
         private void insert_danhmuc () {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -92,10 +85,11 @@ public class FragmentDanhMuc extends Fragment {
                 loaiSP.setTenLoai(ed_tendanhmuc.getText().toString());
                 if (daoLoaiSanPham.addLoaiSanPham(loaiSP)) {
                     Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-                    adapter.notifyDataSetChanged();
-                }
+                    list.add(loaiSP);
+                    adapter.setData(list);                }
                 dialog.cancel();
             });
 

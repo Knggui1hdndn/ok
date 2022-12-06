@@ -10,8 +10,11 @@ import laptrinhandroid.fpoly.dnnhm3.Fragment.SanPham.FragmentDanhMuc;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.SanPham.FragmentSanPham;
 
 public class ViewSanPhamAdapter extends FragmentStatePagerAdapter {
-    public ViewSanPhamAdapter(@NonNull FragmentManager fm, int behavior) {
+  FragmentSanPham sanPham;
+
+    public ViewSanPhamAdapter(@NonNull FragmentManager fm,int behavior, FragmentSanPham sanPham) {
         super(fm, behavior);
+        this.sanPham = sanPham;
     }
 
     @NonNull
@@ -24,7 +27,7 @@ public class ViewSanPhamAdapter extends FragmentStatePagerAdapter {
                 return new FragmentDanhMuc();
 
             default:
-                return new FragmentSanPham();
+                return sanPham;
         }
 
     }

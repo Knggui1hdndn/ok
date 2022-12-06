@@ -1,88 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rectangle_1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
 
-    android:background="@drawable/a"
-    android:gravity="center"
-  >
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rectangle_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/hoadonmakh"
-        android:layout_width="78dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="11dp"
+        <LinearLayout
+            android:id="@+id/item_bill_frag_kho"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal">
 
-        android:gravity="top" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/hoadonmanv"
-        android:layout_width="78dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="40dp"
-        android:gravity="top" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-    <TextView
-        android:id="@+id/hoadonngayban"
-        android:layout_width="185dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="68dp"
-        android:gravity="top" />
+                    <TextView
+                        android:id="@+id/hoadonmanv1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:text="MD01"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/t_ng_c_ng"
-        android:layout_width="117dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="103dp"
-        android:text="tongtien"
-        android:gravity="top" />
-
-    <TextView
-        android:id="@+id/hoadongiao"
-        android:layout_width="51dp"
-        android:layout_height="14dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="328dp"
-        android:layout_marginTop="19dp"
-        android:gravity="top" />
-
-    <TextView
-        android:id="@+id/hoadontongtien"
-        android:layout_width="78dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="328dp"
-        android:layout_marginTop="90dp"
-        android:gravity="top" />
-
-    <TextView
-        android:id="@+id/hoadonthanhtoan"
-        android:layout_width="96dp"
-        android:layout_height="14dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="328dp"
-        android:layout_marginTop="122dp"
-        android:gravity="top" />
-</RelativeLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Đã thanh toán"
+                        android:textColor="#358E38"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
 
 
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <TextView
+                        android:id="@+id/hoadonngayban1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="09/11/2022"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="#39000000" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:text="Tổng cộng"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/hoadontongtien1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:text="20.000"
+                        android:textColor="#E33A2E"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

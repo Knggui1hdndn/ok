@@ -14,13 +14,14 @@ import java.util.ArrayList;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class SanPhamKhoAdapter extends RecyclerView.Adapter<SanPhamKhoAdapter.SanPhamKhoViewHolder> {
     Context context;
     ArrayList<SanPham> arrSP = new ArrayList<>();
-    DAOSanPham daoSanPham;
+    DAOSanPham         daoSanPham = new DAOSanPham();
+    ;
     View viewAlert;
     LayoutInflater inflater;
 
@@ -31,16 +32,13 @@ public class SanPhamKhoAdapter extends RecyclerView.Adapter<SanPhamKhoAdapter.Sa
     @NonNull
     @Override
     public SanPhamKhoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View viewItem = inflater.inflate(R.layout.custom_sanphamkho, parent, false);
-        SanPhamKhoViewHolder sanPhamKhoViewHolder = new SanPhamKhoViewHolder(viewItem);
-        viewAlert = parent;
-        return sanPhamKhoViewHolder;
+         ;
+         viewAlert = parent;
+        return new SanPhamKhoViewHolder(LayoutInflater.from(context) .inflate(R.layout.custom_sanphamkho, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull SanPhamKhoViewHolder holder, int position) {
-        daoSanPham = new DAOSanPham();
         SanPham sanPham = arrSP.get(position);
         if(sanPham != null) {
             try {

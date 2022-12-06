@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -20,6 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterHoaDon.viewadapter;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.haodon1;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class MainActivityhoadon extends AppCompatActivity {
@@ -27,9 +30,8 @@ public class MainActivityhoadon extends AppCompatActivity {
     TabLayout tabLayout;
     viewadapter viewadapter;
     Toolbar toolbar;
-    ImageView imageView1, imageView2, img3;
-    EditText editText;
-
+     EditText editText;
+    haodon1 haodon1;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -39,13 +41,21 @@ public class MainActivityhoadon extends AppCompatActivity {
         viewPager = findViewById(R.id.viewpager2);
         tabLayout = findViewById(R.id.tablayout);
         toolbar = findViewById(R.id.toobar1);
-        toolbar.setTitle("don hang");
+        if(getIntent().getIntExtra("ch",0)==1){
+            toolbar.setTitle("Cửa Hàng");
+        }
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24);
+        actionBar.setTitle("Đơn hàng");
         editText = findViewById(R.id.edttimkiem);
-        viewadapter = new viewadapter(this);
+          haodon1=new haodon1();
+         Bundle bundle=new Bundle();
+         bundle.putInt("maNV",getIntent().getIntExtra("maNV",0));
+         haodon1.setArguments(bundle);
+        viewadapter = new viewadapter(this,haodon1);
         viewPager.setAdapter(viewadapter);
         new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
@@ -54,15 +64,10 @@ public class MainActivityhoadon extends AppCompatActivity {
                     case 0:
                         tab.setText("don hang");
                         break;
-                    case 1:
-                        tab.setText("dang cho");
-                        break;
-                    case 2:
-                        tab.setText("dang theo doi");
-                        break;
                 }
             }
         }).attach();
+        tabLayout.setVisibility(View.GONE);
     }
 
     @Override
@@ -80,7 +85,19 @@ public class MainActivityhoadon extends AppCompatActivity {
         menuInflater.inflate(R.menu.item, menu);
         MenuItem menuItem = menu.findItem(R.id.menuseach);
         final android.widget.SearchView searchView = (android.widget.SearchView) MenuItemCompat.getActionView(menuItem);
-        return super.onCreateOptionsMenu(menu);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                haodon1.InforSearch(s);
+                return true;
+            }
+        });
+        return true;
     }
 
 

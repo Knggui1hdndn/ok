@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class SanPhamThanhToanAdapter extends RecyclerView.Adapter<SanPhamThanhToanAdapter.SanPhamThanhToanViewHolder> {
@@ -22,10 +22,11 @@ public class SanPhamThanhToanAdapter extends RecyclerView.Adapter<SanPhamThanhTo
     View viewAlert;
     LayoutInflater inflater;
 
-    public SanPhamThanhToanAdapter(Context context,  ArrayList<SanPham> arrSP) {
+    public SanPhamThanhToanAdapter(Context context, ArrayList<SanPham> arrSP) {
         this.context = context;
         this.arrSP = arrSP;
     }
+
     @NonNull
     @Override
     public SanPhamThanhToanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,16 +39,18 @@ public class SanPhamThanhToanAdapter extends RecyclerView.Adapter<SanPhamThanhTo
     @Override
     public void onBindViewHolder(@NonNull SanPhamThanhToanViewHolder holder, int position) {
         SanPham sanPham = arrSP.get(position);
-        if(sanPham != null) {
-try{
-    holder.img_SPChon.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sanPham.getAnh()+""));
-}catch (Exception e){
+        if (sanPham != null) {
+            try {
+                holder.img_SPChon.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sanPham.getAnh() + ""));
+            } catch (Exception e) {
 
-}    holder.tv_tenSPChon.setText(sanPham.getTenSP()+"");
+            }
+            holder.tv_tenSPChon.setText(sanPham.getTenSP() + "");
 
-            holder.tv_soluongtonChon.setText(String.format("%.0f", sanPham.getGiaNhap())+" x "+sanPham.getSoLuong());
-            holder.tv_maSPChon.setText("SP"+sanPham.getMaSP());
-            holder.tv_thanhtien.setText(String.format("%.0f", sanPham.getGiaNhap()*sanPham.getSoLuong())+ " đ");;
+            holder.tv_soluongtonChon.setText(String.format("%.0f", sanPham.getGiaNhap()) + " x " + sanPham.getSoLuong());
+            holder.tv_maSPChon.setText("SP" + sanPham.getMaSP());
+            holder.tv_thanhtien.setText(String.format("%.0f", sanPham.getGiaNhap() * sanPham.getSoLuong()) + " đ");
+            ;
         }
     }
 
@@ -56,16 +59,17 @@ try{
         return arrSP.size();
     }
 
-    public static class SanPhamThanhToanViewHolder extends RecyclerView.ViewHolder{
+    public static class SanPhamThanhToanViewHolder extends RecyclerView.ViewHolder {
         ImageView img_SPChon;
         TextView tv_tenSPChon, tv_maSPChon, tv_soluongtonChon, tv_thanhtien;
+
         public SanPhamThanhToanViewHolder(@NonNull View itemView) {
             super(itemView);
-            img_SPChon=itemView.findViewById(R.id.img_SPkho_thanhtoan);
+            img_SPChon = itemView.findViewById(R.id.img_SPkho_thanhtoan);
             tv_tenSPChon = itemView.findViewById(R.id.tv_name_SP_thanhtoan);
             tv_maSPChon = itemView.findViewById(R.id.tv_maSP_thanhtoan);
             tv_soluongtonChon = itemView.findViewById(R.id.tv_soluongSP_thanhtoan);
-            tv_thanhtien=itemView.findViewById(R.id.tv_tongtienSP_thanhtoan);
+            tv_thanhtien = itemView.findViewById(R.id.tv_tongtienSP_thanhtoan);
         }
     }
 }

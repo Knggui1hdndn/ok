@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.SanPhamKhoAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 
@@ -39,27 +39,29 @@ public class TabListProduct_QLKho_Fragment extends Fragment {
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        inflater = getLayoutInflater();
-        rcySP= view.findViewById(R.id.recyclerview_lsProduct);
+         rcySP= view.findViewById(R.id.recyclerview_lsProduct);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         rcySP.setLayoutManager(layoutManager);
         TextView tv_tongSP,tv_giatriton,tv_soLuongton;
         tv_tongSP=view.findViewById(R.id.txt_tongSPton);
         tv_giatriton=view.findViewById(R.id.tv_giatriton);
         tv_soLuongton=view.findViewById(R.id.tv_tongSoLuong);
-        daoSanPham = new DAOSanPham();
-        try {
-            arrSP = (ArrayList<SanPham>) daoSanPham.getListSanPham();
-            for (SanPham sanPham:arrSP) {
-                giatritongSP+=(sanPham.getSoLuong() * sanPham.getGiaNhap());
-                soluongton+=sanPham.getSoLuong();
-            }
-//            giatritongSP= daoSanPham.getTongTienSanPham();
+       getActivity().runOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+               daoSanPham = new DAOSanPham();
+               try {
+                   arrSP = (ArrayList<SanPham>) daoSanPham.getListSanPham();
+                   for (SanPham sanPham:arrSP) {
+                       giatritongSP+=(sanPham.getSoLuong() * sanPham.getGiaNhap());
+                       soluongton+=sanPham.getSoLuong();
+                   }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Log.d("loiii", "onViewCreated: "+e.getMessage());
-        }
+               } catch (SQLException e) {
+                   e.printStackTrace();
+                }
+           }
+       });
         adapter = new SanPhamKhoAdapter(mContext, arrSP);
         rcySP.setAdapter(adapter);
         tv_tongSP.setText(arrSP.size()+" sản phẩm");

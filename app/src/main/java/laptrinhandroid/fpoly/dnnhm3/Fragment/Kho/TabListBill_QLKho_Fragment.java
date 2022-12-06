@@ -23,7 +23,7 @@ import laptrinhandroid.fpoly.dnnhm3.Activity.ChoseProducts;
 import laptrinhandroid.fpoly.dnnhm3.Activity.QuanLyKho;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.HoaDonNhapAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOHoaDonNhap;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
 import laptrinhandroid.fpoly.dnnhm3.Interface.InforSearch;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
@@ -37,7 +37,7 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
     DAOHoaDonNhap daoHoaDonNhap;
     HoaDonNhapAdapter adapter;
     QuanLyKho quanLyKho;
-
+int maNV;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,22 +58,29 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
         rcyPm = view.findViewById(R.id.recyclerview_lsBill);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         rcyPm.setLayoutManager(layoutManager);
+        maNV=getArguments().getInt("maNV");
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ChoseProducts.class));
+                Intent intent=new Intent(getContext(), ChoseProducts.class);
+                intent.putExtra("maNV",maNV);
+                startActivity(intent);
             }
         });
 
-
+getActivity().runOnUiThread(new Runnable() {
+    @Override
+    public void run() {
         daoHoaDonNhap = new DAOHoaDonNhap();
-
         try {
             arrHDN = (ArrayList<HoaDonNhapKho>) daoHoaDonNhap.getListHoaDonNhap();
         } catch (SQLException e) {
             e.printStackTrace();
             Log.d("loiii", "onViewCreated: " + e.getMessage());
         }
+    }
+});
         adapter = new HoaDonNhapAdapter((QuanLyKho) mContext, arrHDN);
         rcyPm.setAdapter(adapter);
 
@@ -84,13 +91,18 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
     @Override
     public void onResume() {
         super.onResume();
-        arrHDN.clear();
-        try {
-            arrHDN.addAll(daoHoaDonNhap.getListHoaDonNhap());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        adapter.notifyDataSetChanged();
+       getActivity().runOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+               arrHDN.clear();
+               try {
+                   arrHDN.addAll(daoHoaDonNhap.getListHoaDonNhap());
+               } catch (SQLException e) {
+                   e.printStackTrace();
+               }
+               adapter.notifyDataSetChanged();
+           }
+       });
     }
 
     @Override

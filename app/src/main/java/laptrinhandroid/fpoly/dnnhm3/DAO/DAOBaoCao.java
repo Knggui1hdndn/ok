@@ -18,10 +18,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.BaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BaoCao;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class DAOBaoCao {
@@ -200,14 +200,14 @@ public class DAOBaoCao {
 
     // lấy ngày đầu tiên của tuần thứ bao nhiêu trong năm
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private String getFirstDayThisWeek(LocalDate localDate, Calendar calendar ){
+    public String getFirstDayThisWeek(LocalDate localDate, Calendar calendar ){
         return localDate.with(WeekFields.of(Locale.US).getFirstDayOfWeek())
                 .with(WeekFields.of(Locale.US).weekOfWeekBasedYear(), calendar.get(Calendar.WEEK_OF_YEAR)).toString();
     }
 
     // lấy ngày đầu tiên của tháng trong localDate
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private String getFirstDayThisMonth(LocalDate localDate){
+    public String getFirstDayThisMonth(LocalDate localDate){
         return localDate.withDayOfMonth(1).toString();
     }
 }

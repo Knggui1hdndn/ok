@@ -20,7 +20,7 @@ import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.QuanLyKho;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOHoaDonNhap;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.BottomSheetDialog;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
@@ -29,7 +29,7 @@ public class HoaDonNhapAdapter extends RecyclerView.Adapter<HoaDonNhapAdapter.Ho
     List<HoaDonNhapKho> listold;
     Context context;
     ArrayList<HoaDonNhapKho> arrHDN = new ArrayList<>();
-    DAOHoaDonNhap daoHoaDonNhap;
+    DAOHoaDonNhap daoHoaDonNhap = new DAOHoaDonNhap();
     View viewAlert,viewUpdatePM;
     LayoutInflater inflater;
     QuanLyKho activity;
@@ -50,7 +50,7 @@ public class HoaDonNhapAdapter extends RecyclerView.Adapter<HoaDonNhapAdapter.Ho
 
     @Override
     public void onBindViewHolder(@NonNull HoaDonNhapViewHolder holder, int position) {
-        daoHoaDonNhap = new DAOHoaDonNhap();
+
          hoaDonNhapKho = arrHDN.get(position);
          if(hoaDonNhapKho != null) {
             holder.tv_IdHDN.setText("#NH"+hoaDonNhapKho.getMaHDNhap());
@@ -87,7 +87,7 @@ public class HoaDonNhapAdapter extends RecyclerView.Adapter<HoaDonNhapAdapter.Ho
          return arrHDN.size();
     }
 
-    @Override
+       @Override
     public Filter getFilter() {
 
         return new Filter() {
@@ -106,7 +106,7 @@ public class HoaDonNhapAdapter extends RecyclerView.Adapter<HoaDonNhapAdapter.Ho
                     List<HoaDonNhapKho> listabc = new ArrayList<>();
                     for (HoaDonNhapKho hoaDonNhapKho1 : arrHDN) {
                         Log.d("sssssăă", "performFiltering: "+hoaDonNhapKho1.getMaNV());
-                       // HoaDonNhapKho hoaDonNhapTam = daoHoaDonNhap.getIdHD(String.valueOf(hoaDonNhapKho1.getMaHDNhap()));
+                        // HoaDonNhapKho hoaDonNhapTam = daoHoaDonNhap.getIdHD(String.valueOf(hoaDonNhapKho1.getMaHDNhap()));
                         if (String.valueOf(hoaDonNhapKho1.getMaHDNhap()).toLowerCase().contains(strsearch.toLowerCase())) {
                             listabc.add(hoaDonNhapKho1);
                         }

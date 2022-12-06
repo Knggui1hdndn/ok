@@ -18,10 +18,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.BaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BaoCao;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class DAOBaoCao {

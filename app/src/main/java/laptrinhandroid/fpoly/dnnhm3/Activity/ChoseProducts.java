@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.SanPhamChonAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.Interface.SanPhamInterface;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
@@ -43,7 +43,7 @@ public class ChoseProducts extends AppCompatActivity implements SanPhamInterface
     ExtendedFloatingActionButton btn_continute;
     DAOSanPham daoSanPham;
     SanPhamChonAdapter adapter;
-
+int maNV;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +61,13 @@ public class ChoseProducts extends AppCompatActivity implements SanPhamInterface
         txt_search=findViewById(R.id.txt_search_kho_productChose);
         rcySP= findViewById(R.id.recyclerview_lsProductChose);
         btn_continute=findViewById(R.id.btn_continute);
+        maNV=getIntent().getIntExtra("maNV",0);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rcySP.setLayoutManager(layoutManager);
         btn_continute.setVisibility(View.GONE);
-
         daoSanPham = new DAOSanPham();
         try {
             arrSP = (ArrayList<SanPham>) daoSanPham.getListSanPham();
-
         } catch (SQLException e) {
             e.printStackTrace();
             Log.d("loiii", "onViewCreated: "+e.getMessage());
@@ -132,6 +131,7 @@ public class ChoseProducts extends AppCompatActivity implements SanPhamInterface
                         if (finalL !=0) {
                             Intent intent = new Intent(ChoseProducts.this, ChiTietHoaDonNhapActivity.class);
                             intent.putExtra("key", arrSP1);
+                            intent.putExtra("maNV",maNV);
                             startActivity(intent);
                             finish();
                         }else {

@@ -2,24 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:icon="@drawable/invoice"
-        android:title="Đơn hàng"
-        android:id="@+id/donHang"/>
-    <item
-        android:icon="@drawable/products"
-        android:title="Sản phẩm"
-        android:id="@+id/sanPham"/>
+
     <item
         android:icon="@drawable/ic_baseline_search_24"
         android:title="tim kiem"
         android:id="@+id/menuseach"
         app:showAsAction="ifRoom|withText"
         app:actionViewClass="android.widget.SearchView" />
-    <item
-        android:icon="@drawable/ic_baseline_filter_list_24"
-        android:title="loc"
-        android:id="@+id/menufilter"
-        app:showAsAction="always"
-         />
+
 </menu>

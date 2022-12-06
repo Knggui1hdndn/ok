@@ -31,7 +31,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,10 +57,10 @@ import laptrinhandroid.fpoly.dnnhm3.DAO.DAOChamCong;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
 import laptrinhandroid.fpoly.dnnhm3.DAO.ThongBaoAdminDAO;
 import laptrinhandroid.fpoly.dnnhm3.DAO.ThongBaoNVDAO;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BangLuong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ThongBaoAdmin;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BangLuong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChamCong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ThongBaoAdmin;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.FormatDay;
 import laptrinhandroid.fpoly.dnnhm3.R;
 import laptrinhandroid.fpoly.dnnhm3.notification.FcmNotificationsSender;
@@ -116,15 +115,16 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         Button button = findViewById(R.id.btnBangXepHang);
 
         try {
-            button.setOnClickListener(view5 -> {
-                if (nv != null) {
+            nv = nhanVien1.getListNhanVien(intent.getIntExtra("NV", 0));
+
+             button.setOnClickListener(view5 -> {
+
                     Intent intent1 = new Intent(this, XepLoai.class);
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
                     startActivity(intent1, options.toBundle());
-                }
+
             });
             navigationView.setNavigationItemSelectedListener(this);
-            nv = nhanVien1.getListNhanVien(intent.getIntExtra("NV", 0));
             if (nv != null) {
                 view4.setImageBitmap(ConvertImg.convertBaseStringToBitmap(nv.getAnh()));
                 view1.setText(nv.getHoTen() + "");
@@ -176,28 +176,37 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         }
         setAdaperViewPager();
         //Chạy chữ
-        runLetters();
+        //runLetters();
         nhanVien.setOnClickListener(v -> {
             if (nv != null) {
                 Intent intent1 = new Intent(this, MainActivity.class);
-                intent1.putExtra("NV", nv.getMaNv());
+                intent1.putExtra("NV",nv.getMaNv());
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
                 startActivity(intent1, options.toBundle());
             } else {
                 Intent intent1 = new Intent(this, QuanLiNhanVien.class);
-
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
                 startActivity(intent1, options.toBundle());
             }
-
         });
         donHang.setOnClickListener(v -> {
             Intent intent1 = new Intent(this, MainActivityhoadon.class);
+            intent1.putExtra("ch",1);
+            if (nv != null) {
+                intent1.putExtra("maNV", nv.getMaNv());
+            } else {
+                intent1.putExtra("maNV", 28);
+            }
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
             startActivity(intent1, options.toBundle());
         });
         qlKho.setOnClickListener(v -> {
             Intent intent1 = new Intent(this, QuanLyKho.class);
+            if (nv != null) {
+                intent1.putExtra("maNV", nv.getMaNv());
+            } else {
+                intent1.putExtra("maNV", 28);
+            }
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
             startActivity(intent1, options.toBundle());
         });
@@ -212,9 +221,14 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
             startActivity(intent1, options.toBundle());
         });
         cuaHang.setOnClickListener(v -> {
-//            Intent intent1 = new Intent(this, MainActivity.class);
-//             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
-//            startActivity(intent1, options.toBundle());
+            Intent intent1 = new Intent(this, hoadon11111.class);
+            if (nv != null) {
+                intent1.putExtra("maNV", nv.getMaNv());
+            } else {
+                intent1.putExtra("maNV", 28);
+            }
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
+            startActivity(intent1, options.toBundle());
         });
         floatAction.setOnClickListener(viewe -> {
             if (nv == null) {
@@ -234,7 +248,6 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                 try {
                     ChamCong chamCong = daoChamCong.getChamCong(nv.getMaNv());
                     //Đếm thời gian bắt đầu vào làm
-
                     if (currentTime >= (gioBatDau - (30 * 60 * 1000)) && currentTime <= gioBatDau) {
                         txtMessage.setText("Bắt đầu vào làm sau");
                         demNguocGioBatDauLam = demNguocGioBatDauLam(txtTg, txtMessage, conLai).start();
@@ -285,11 +298,14 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                 btnXacNhan.setOnClickListener(view11 -> {
                     ChamCong chamCong = null;
                     try {
-                        chamCong = daoChamCong.getChamCong(1);
+                        chamCong = daoChamCong.getChamCong(nv.getMaNv());
+                        Toast.makeText(this, chamCong + "", Toast.LENGTH_SHORT).show();
                         if (chamCong != null) {
                             chamCong.setGioKetThuc(new Time(System.currentTimeMillis()));
                             if (daoChamCong.updateChamCong(chamCong)) {
-                                ;
+                                hideView();
+                                txtMessage.setText("Đang chờ xác nhận");
+                                new FcmNotificationsSender(nv.getToken(), "Nhân viên " + nv.getHoTen() + " yêu cầu xác nhận công", "Nhấn vào đây để đi đến xác nhận", GiaoDienChinh.this).SendNotifications();
                                 BangLuong bangLuong1 = bangLuong.getBangLuong(nv.getMaNv());
                                 switch (getTop()) {
                                     case 1:
@@ -305,17 +321,13 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                                         break;
                                 }
                                 bangLuong.updateBangLuong(bangLuong1);
-                                new FcmNotificationsSender(nv.getToken(), "Nhân viên " + nv.getHoTen() + " yêu cầu xác nhận công", "Nhấn vào đây để đi đến xác nhận", GiaoDienChinh.this).SendNotifications();
                                 new ThongBaoAdminDAO().addThongBaoAdmin(new ThongBaoAdmin(nv.getMaNv(), chamCong.getNgay().toString(), false));
-                                hideView();
-                                txtMessage.setText("Đang chờ xác nhận");
                             }
                         } else {
                             daoChamCong.addChamCong(new ChamCong(nv.getMaNv(), new Time(System.currentTimeMillis()), null, new java.sql.Date(System.currentTimeMillis()), 0));
                             bangLuong.addBangLuong(new BangLuong(nv.getMaNv(), 5000, 0, 0, FormatDay.calendarDay().getYear() + "-" + (FormatDay.calendarDay().getMonth())));
                             khiChamCongVaoLam(new Time(System.currentTimeMillis()));
                             btnXacNhan.setText("Chấm công kết thúc");
-
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -347,8 +359,8 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         HashMap<Integer, Integer> hashMap = GiaoDienChinh.bangLuong.getTongSoGioLamNhanVien();
         int i = 1;
         for (Map.Entry<Integer, Integer> hashMap1 : hashMap.entrySet()) {
-            Log.d("ssdaa", "getTop: "+hashMap1.getKey());
-            if (hashMap1.getKey()==nv.getMaNv()) {
+            Log.d("ssdaa", "getTop: " + hashMap1.getKey());
+            if (hashMap1.getKey() == nv.getMaNv()) {
                 return i;
             }
             i++;
@@ -575,9 +587,15 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.donHang:
-                Intent intent1 = new Intent(this, MainActivityhoadon.class);
+                Intent i1ntent1 = new Intent(this, MainActivityhoadon.class);
+                i1ntent1.putExtra("ch",1);
+                if (nv != null) {
+                    i1ntent1.putExtra("maNV", nv.getMaNv());
+                } else {
+                    i1ntent1.putExtra("maNV", 28);
+                }
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
-                startActivity(intent1, options.toBundle());
+                startActivity(i1ntent1, options.toBundle());
                 break;
             case R.id.sanPham:
                 Intent intent11 = new Intent(this, SanPhamActivity.class);
@@ -586,6 +604,11 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                 break;
             case R.id.qlKho:
                 Intent intent12 = new Intent(this, QuanLyKho.class);
+                if (nv != null) {
+                    intent12.putExtra("maNV", nv.getMaNv());
+                } else {
+                    intent12.putExtra("maNV", 28);
+                }
                 ActivityOptions options2 = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
                 startActivity(intent12, options2.toBundle());
                 break;
@@ -608,6 +631,7 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                 }
                 break;
             case R.id.doiMK:
+                    startActivity(new Intent(GiaoDienChinh.this, DoiMatKhauActivity.class));
                 break;
             case R.id.logout:
                 Intent intent15 = new Intent(this, login.class);

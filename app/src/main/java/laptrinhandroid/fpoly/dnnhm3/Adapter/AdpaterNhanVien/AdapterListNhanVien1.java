@@ -1,7 +1,6 @@
 package laptrinhandroid.fpoly.dnnhm3.Adapter.AdpaterNhanVien;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.GiaoDienChinh;
-import laptrinhandroid.fpoly.dnnhm3.Activity.QuanLiNhanVien;
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BangLuong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Fragment.NhanVien.BottomSheetNhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class AdapterListNhanVien1 extends RecyclerView.Adapter<AdapterListNhanVien1.AdapterListNhanVienViewholder> {

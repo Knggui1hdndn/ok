@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.BangLuong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BangLuong;
 
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
@@ -34,13 +34,13 @@ public class DAOBangLuong {
                 b = false;
             }
             if (b) {
-                String s1 = "Insert into BangLuong(maNV, luongCB,ungLuong,ngayThang,thuong) values ( ?,?,?,?,?)";
+                String s1 = "Insert into BangLuong(maNV, luongCB,ungLuong,thuong,ngayThang) values ( ?,?,?,?,?)";
                 PreparedStatement preparedStatement = objConn.prepareStatement(s1);
                 preparedStatement.setInt(1, bangLuong.getMaNV());
                 preparedStatement.setFloat(2, bangLuong.getLuongCB());
                 preparedStatement.setFloat(3, bangLuong.getUngLuong());
-                preparedStatement.setString(4, bangLuong.getNgayThang());
-                preparedStatement.setFloat(5, bangLuong.getThuong());
+                preparedStatement.setString(5, bangLuong.getNgayThang());
+                preparedStatement.setFloat(4, bangLuong.getThuong());
 
                 if (preparedStatement.executeUpdate() > 0) {
                     preparedStatement.close();
@@ -81,7 +81,7 @@ public class DAOBangLuong {
         if (objConn != null) {
             CalendarDay calendarDay=CalendarDay.today();
             Statement statement = objConn.createStatement();// Tạo đối tượng Statement.
-            String sql = " SELECT  * FROM  BangLuong where maNV='" + maNV + "' and MONTH(ngayThang)='"+calendarDay.getYear()+ "'and DAY(ngayThang)='"+calendarDay.getMonth()+"'";
+            String sql = " SELECT  * FROM  BangLuong where maNV='" + maNV + "' and CONVERT(NVARCHAR(MAX), ngayThang)=N'" + calendarDay.getYear()+"-"+calendarDay.getMonth() + "'  ";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
 

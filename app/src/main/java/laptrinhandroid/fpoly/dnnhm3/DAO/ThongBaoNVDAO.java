@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ThongBaoNV;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ThongBaoNV;
 
 public class ThongBaoNVDAO {
     Connection objConn;

@@ -14,8 +14,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class HoadonDateAdapter extends RecyclerView.Adapter<HoadonDateAdapter.viewholder> {

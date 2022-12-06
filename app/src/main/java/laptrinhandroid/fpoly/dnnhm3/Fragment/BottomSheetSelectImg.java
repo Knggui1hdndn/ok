@@ -7,22 +7,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.AddNhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Activity.ChiTietNhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Activity.SanPhamActivity;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.SanPham.FragmentSanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class BottomSheetSelectImg extends BottomSheetDialog {
     private MaterialButton btnLibrary, btnCamera;
     Activity activity;
+   FragmentSanPham fragmentSanPham;
+
+    public BottomSheetSelectImg(Activity activity, FragmentSanPham fragmentSanPham) {
+        this.activity = activity;
+        this.fragmentSanPham = fragmentSanPham;
+    }
 
     public BottomSheetSelectImg(Activity activity) {
         this.activity = activity;
@@ -37,7 +42,10 @@ public class BottomSheetSelectImg extends BottomSheetDialog {
         btnCamera = view.findViewById(R.id.btnCamera);
 
         btnLibrary.setOnClickListener(view12 -> {
-            if(activity instanceof ChiTietNhanVien){
+          if(activity instanceof SanPhamActivity){
+              ( fragmentSanPham).check(R.id.btnLibrary);
+
+          } else if(activity instanceof ChiTietNhanVien){
                 ((ChiTietNhanVien)activity).check(R.id.btnLibrary);
             }else{
                 ((AddNhanVien)activity).check(R.id.btnLibrary);
@@ -46,7 +54,10 @@ public class BottomSheetSelectImg extends BottomSheetDialog {
             dismiss();
         });
         btnCamera.setOnClickListener(view13 -> {
-            if(activity instanceof ChiTietNhanVien){
+            if(activity instanceof SanPhamActivity){
+                (( fragmentSanPham)).check(R.id.btnCamera);
+
+            } else if(activity instanceof ChiTietNhanVien){
                 ((ChiTietNhanVien)activity).check(R.id.btnCamera);
             }else {
                 ((AddNhanVien)activity).check(R.id.btnCamera);

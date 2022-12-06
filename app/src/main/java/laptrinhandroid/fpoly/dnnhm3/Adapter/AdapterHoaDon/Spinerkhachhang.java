@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.KhachHang;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.KhachHang;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class Spinerkhachhang extends ArrayAdapter<KhachHang> {

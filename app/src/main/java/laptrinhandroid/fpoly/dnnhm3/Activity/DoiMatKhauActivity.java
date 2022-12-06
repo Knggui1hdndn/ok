@@ -22,7 +22,7 @@ import java.sql.SQLException;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class DoiMatKhauActivity extends AppCompatActivity {
@@ -61,16 +61,15 @@ public class DoiMatKhauActivity extends AppCompatActivity {
         button.setOnClickListener(v -> {
             try {
                 checkData();
-                if (checkPassCu && checkPassMoi && checkCuMoi) {
                     nhanVien.setPasswords(tilmkmoi1.getEditText().getText().toString().trim());
                     if (daoNhanVien.updateNhanVien(nhanVien)) {
                         Toast.makeText(this, "Them thanh cong", Toast.LENGTH_SHORT).show();
 
                         clearTIL();
+                    }else {
+                        Toast.makeText(this, "Thai bai", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(this, "Them that bai", Toast.LENGTH_SHORT).show();
-                }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

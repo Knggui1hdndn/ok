@@ -6,13 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,13 +19,10 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.sql.SQLException;
 
-import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
-import laptrinhandroid.fpoly.dnnhm3.notification.FcmNotificationsSender;
 
 public class login extends AppCompatActivity {
 
@@ -45,67 +38,69 @@ public class login extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("Vui lòng chờ ...");
-        FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
 
-            }
-        });
+
         btnLogin.setOnClickListener(view -> {
-            progressDialog.show();
-            if (!TextUtils.isEmpty(inputEmail.getText().toString()) && !TextUtils.isEmpty(inputPassword.getText().toString())) {
-                try {
-                    NhanVien nhanVien = new DAONhanVien().checkLogin(inputEmail.getText().toString(), inputPassword.getText().toString());
-                    Boolean admin = new DAONhanVien().checkLoginAdmin(inputEmail.getText().toString(), inputPassword.getText().toString());
-                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                        @Override
-                        public void onComplete(@NonNull Task<String> task) {
-                            if (task.isSuccessful()) {
-                                if (admin) {
-                                    try {
-                                        if (new DAONhanVien().updateAdmin(inputEmail.getText().toString(), task.getResult())) {
-                                            Intent intent = new Intent(login.this, GiaoDienChinh.class);
-                                            // lưu dữ liệu tý
-                                            SharedPreferences sharedPreferences = getSharedPreferences("thongtin", MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString("gmail", inputEmail.getText().toString());
-                                            editor.putString("pass", inputPassword.getText().toString());
-                                            editor.commit();
-                                            startActivity(intent);
-                                        }
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                        Log.d("sssssss", "onComplete:1" + e.getMessage());
-                                    }
-                                } else {
-                                    if (nhanVien != null) {
-                                        nhanVien.setToken(task.getResult());
-                                        try {
-                                            if (new DAONhanVien().updateNhanVien(nhanVien)) {
-                                                Intent intent = new Intent(login.this, GiaoDienChinh.class);
-                                                intent.putExtra("NV", nhanVien.getMaNv());
-                                                // lưu dữ liệu tý
-                                                SharedPreferences sharedPreferences = getSharedPreferences("thongtin", MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                editor.putString("gmail", inputEmail.getText().toString());
-                                                editor.putString("pass", inputPassword.getText().toString());
-                                                editor.commit();
-                                                startActivity(intent);
+            FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    progressDialog.show();
+                    if (!TextUtils.isEmpty(inputEmail.getText().toString()) && !TextUtils.isEmpty(inputPassword.getText().toString())) {
+                        try {
+                            NhanVien nhanVien = new DAONhanVien().checkLogin(inputEmail.getText().toString(), inputPassword.getText().toString());
+                            Boolean admin = new DAONhanVien().checkLoginAdmin(inputEmail.getText().toString(), inputPassword.getText().toString());
+                            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                                @Override
+                                public void onComplete(@NonNull Task<String> task) {
+                                    if (task.isSuccessful()) {
+                                        if (admin) {
+                                            try {
+                                                if (new DAONhanVien().updateAdmin(inputEmail.getText().toString(), task.getResult())) {
+                                                    Intent intent = new Intent(login.this, GiaoDienChinh.class);
+                                                    // lưu dữ liệu tý
+                                                    SharedPreferences sharedPreferences = getSharedPreferences("thongtin", MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    editor.putString("gmail", inputEmail.getText().toString());
+                                                    editor.putString("pass", inputPassword.getText().toString());
+                                                    editor.commit();
+                                                    startActivity(intent);
+                                                }
+                                            } catch (SQLException e) {
+                                                e.printStackTrace();
+                                                Log.d("sssssss", "onComplete:1" + e.getMessage());
                                             }
-                                        } catch (SQLException e) {
-                                            e.printStackTrace();
+                                        } else {
+                                            if (nhanVien != null) {
+                                                nhanVien.setToken(task.getResult());
+                                                try {
+                                                    if (new DAONhanVien().updateNhanVien(nhanVien)) {
+                                                        Intent intent = new Intent(login.this, GiaoDienChinh.class);
+                                                        intent.putExtra("NV", nhanVien.getMaNv());
+                                                        // lưu dữ liệu tý
+                                                        SharedPreferences sharedPreferences = getSharedPreferences("thongtin", MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                        editor.putString("gmail", inputEmail.getText().toString());
+                                                        editor.putString("pass", inputPassword.getText().toString());
+                                                        editor.commit();
+                                                        startActivity(intent);
+                                                    }
+                                                } catch (SQLException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                Toast.makeText(login.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    } else {
-                                        Toast.makeText(login.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }
+                            });
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
-                    });
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                    }
                 }
-            }
+            });
+
         });
     }
 }

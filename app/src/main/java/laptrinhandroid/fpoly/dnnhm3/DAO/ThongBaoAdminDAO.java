@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ThongBaoAdmin;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ThongBaoAdmin;
 
 public class ThongBaoAdminDAO {
     Connection objConn;

@@ -23,8 +23,8 @@ import java.util.List;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterHoaDon.AdapterchitiethoadonSheet;
 
 import laptrinhandroid.fpoly.dnnhm3.DAO.Daochitiethoadon;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChiTietHoaDonban;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChiTietHoaDonban;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class BottomSheetdigloghoadon extends BottomSheetDialogFragment {
@@ -83,10 +83,7 @@ AdapterchitiethoadonSheet adapterchitiethoadonSheet;
         recyclerView.setAdapter(adapterchitiethoadonSheet);
     }
         public static BottomSheetdigloghoadon getInstance(HoaDonBan hoaDonBan){
-        BottomSheetdigloghoadon fragment = new BottomSheetdigloghoadon();
-        Bundle bundle= new Bundle();
-            bundle.putSerializable("keyhoadan",  hoaDonBan);
-        fragment.setArguments(bundle);
-        return fragment;
+
+        return null;
     }
 }

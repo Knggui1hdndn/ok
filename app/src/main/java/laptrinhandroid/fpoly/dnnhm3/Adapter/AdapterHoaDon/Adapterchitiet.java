@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class Adapterchitiet extends RecyclerView.Adapter<Adapterchitiet.viewholder> {
@@ -43,7 +44,12 @@ public class Adapterchitiet extends RecyclerView.Adapter<Adapterchitiet.viewhold
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
 
         SanPham sp = list.get(position);
-        holder.imageView.setImageResource(R.drawable.group);
+        try {
+            holder.imageView.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sp.getAnh()));
+
+        }catch (Exception e){
+
+        }
         holder.txtname.setText(String.valueOf(sp.getTenSP()));
         holder.txtsoluong.setText("số lượng: "+(sp.getSoLuong()));
 

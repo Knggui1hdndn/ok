@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,8 +18,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.ThongBao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ThongBaoNV;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ThongBaoNV;
 import laptrinhandroid.fpoly.dnnhm3.Activity.MainActivity;
 import laptrinhandroid.fpoly.dnnhm3.R;
 

@@ -26,13 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -41,12 +37,10 @@ import java.util.Calendar;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdpaterNhanVien.AdapterPagerNhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BangLuong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BangLuong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChamCong;
 import laptrinhandroid.fpoly.dnnhm3.R;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.FormatDay;
-import laptrinhandroid.fpoly.dnnhm3.notification.FcmNotificationsSender;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -71,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setToolBar();
         Intent intent = getIntent();
         nhanVien = intent.getIntExtra("NV", 0);
-        viewPager2.setAdapter(new AdapterPagerNhanVien(this, nhanVien));
+         viewPager2.setAdapter(new AdapterPagerNhanVien(this, nhanVien));
         new TabLayoutMediator(layout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

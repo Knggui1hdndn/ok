@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChiTietHoaDonban;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChiTietHoaDonban;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class Daochitiethoadon {
@@ -98,6 +98,7 @@ public class Daochitiethoadon {
 
 
     public List<ChiTietHoaDonban> getAllchitiethoadon() throws SQLException{
+
         String sql = "SELECT * FROM ChiTietHoaDon"  ;
         try {
             return getListchitietHoadonban(sql);

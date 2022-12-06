@@ -4,7 +4,6 @@ package laptrinhandroid.fpoly.dnnhm3.Fragment;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,21 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Activity.QuanLyKho;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.AdapterchitiethoadonNhap;
 
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOChiTietHoaDonNhap;
-import laptrinhandroid.fpoly.dnnhm3.DAO.DAOHoaDonNhap;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChiTietHoaDonNhap;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChiTietHoaDonNhap;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {

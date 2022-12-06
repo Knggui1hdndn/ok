@@ -15,8 +15,8 @@ import java.util.List;
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
 import laptrinhandroid.fpoly.dnnhm3.DAO.Daochitiethoadon;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChiTietHoaDonban;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChiTietHoaDonban;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class AdapterchitiethoadonSheet extends RecyclerView.Adapter<AdapterchitiethoadonSheet.viewholder> {
@@ -24,7 +24,8 @@ public class AdapterchitiethoadonSheet extends RecyclerView.Adapter<Adapterchiti
     List<ChiTietHoaDonban> list;
     Daochitiethoadon daochitiethoadon;
     List<SanPham> listsp;
-    DAOSanPham daoSanPham;
+    DAOSanPham         daoSanPham = new DAOSanPham();
+
     public AdapterchitiethoadonSheet(Context context, List<ChiTietHoaDonban> list) {
         this.context = context;
         this.list = list;
@@ -42,11 +43,18 @@ public class AdapterchitiethoadonSheet extends RecyclerView.Adapter<Adapterchiti
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
         ChiTietHoaDonban chiTietHoaDonban= list.get(position);
-        daoSanPham = new DAOSanPham();
-        SanPham sanPham=daoSanPham.getIdSP(String.valueOf(chiTietHoaDonban.getMaSp()));
-        holder.imganh.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sanPham.getAnh()));
+       // SanPham sanPham=daoSanPham.getIdSP(String.valueOf(chiTietHoaDonban.getMaSp()));
         holder.namesp.setText( chiTietHoaDonban.getTenSP());
         holder.soluong.setText("số lượng: "+(chiTietHoaDonban.getSoLuong()));
+        try {
+            if(chiTietHoaDonban.getAnh()!=null){
+                holder.imganh.setImageBitmap(ConvertImg.convertBaseStringToBitmap(chiTietHoaDonban.getAnh()));
+
+            }
+
+        }catch (Exception e){
+
+        }
 
     }
 

@@ -7,7 +7,7 @@
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm nhà cung cấp"
+        android:text="Thêm nhà khách hàng"
         android:background="@drawable/bo_tron"
         android:gravity="center"
         android:textColor="@color/white"

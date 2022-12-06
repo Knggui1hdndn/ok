@@ -1,4 +1,4 @@
-package laptrinhandroid.fpoly.dnnhm3.Entity;
+package laptrinhandroid.fpoly.dnnhm3.Fragment.Entity;
 
 public class NhaCungCap {
     private int maNCC;

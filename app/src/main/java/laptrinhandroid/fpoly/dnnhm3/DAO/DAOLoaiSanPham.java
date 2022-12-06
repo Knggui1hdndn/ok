@@ -1,5 +1,7 @@
 package laptrinhandroid.fpoly.dnnhm3.DAO;
 
+import android.util.Log;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.LoaiSP;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.LoaiSP;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class DAOLoaiSanPham {
@@ -49,19 +51,20 @@ public class DAOLoaiSanPham {
         }
         return 1;
     }
-    public int deleteLoaiSanPham(int maLoai) {
+    public boolean deleteLoaiSanPham(int maLoai) {
         Statement statement = null;
         try {
             statement = objConn.createStatement();
             String sql = "Delete from LoaiSP where maLoai='" + maLoai + "'";
-            if (statement.executeUpdate(sql) <0) {
+            if (statement.executeUpdate(sql) >0) {
                 statement.close();
-                return -1;
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Log.d("saaaaaaaaaaa", "deleteLoaiSanPham: "+e.getMessage());
         }
-        return 1;
+        return false;
     }
     public List<LoaiSP> getListLoaiSanPham() throws SQLException {
         List<LoaiSP> list = new ArrayList<>();

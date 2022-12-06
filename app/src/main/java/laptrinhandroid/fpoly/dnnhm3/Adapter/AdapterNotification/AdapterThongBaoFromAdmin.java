@@ -21,9 +21,9 @@ import laptrinhandroid.fpoly.dnnhm3.Activity.GiaoDienChinh;
 import laptrinhandroid.fpoly.dnnhm3.Activity.ListChamCongBangLuong;
 import laptrinhandroid.fpoly.dnnhm3.Activity.ThongBao;
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ThongBaoAdmin;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ThongBaoAdmin;
 
 public class AdapterThongBaoFromAdmin extends RecyclerView.Adapter<AdapterThongBaoFromAdmin.ThongBaoViewHolder> {
     List<ThongBaoAdmin> thongBaoFromAdmins;

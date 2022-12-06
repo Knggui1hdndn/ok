@@ -1,9 +1,8 @@
 package laptrinhandroid.fpoly.dnnhm3.DAO;
 
-import androidx.fragment.app.FragmentActivity;
+import android.util.Log;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class DAONhanVien {
@@ -83,13 +82,14 @@ public class DAONhanVien {
  
         if (objConn!=null){
             Statement statement = objConn.createStatement();// Tạo đối tượng Statement.
-            String sql = " SELECT * FROM  NhanVien";
+            String sql = " SELECT * FROM  NhanVien where maNv>28 or maNv<28";
             // Thực thi câu lệnh SQL trả về đối tượng ResultSet. // Mọi kết quả trả về sẽ được lưu trong ResultSet
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 list.add(new NhanVien(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getDate(12), rs.getDate(13)));// Đọc dữ liệu từ ResultSet
             }
             statement.close();// Đóng kết nối
+            Log.d("ssssssssw", "getListNhanVien: "+list.size());
             return list;
         }
 

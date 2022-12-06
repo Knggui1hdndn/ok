@@ -8,12 +8,11 @@
     tools:context=".Activity.SanPhamActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBar_sanpham"
-        app:menu="@menu/toolbar_sanpham"
-         android:background="@color/green"
- 
+          android:background="@color/green"
+ app:menu="@menu/menu"
         app:title="Sản phẩm"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
          />
 
     <com.google.android.material.tabs.TabLayout

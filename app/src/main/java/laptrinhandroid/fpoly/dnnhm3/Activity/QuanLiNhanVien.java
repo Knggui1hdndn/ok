@@ -12,17 +12,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Adapter.AdpaterNhanVien.AdapterListChamCong;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdpaterNhanVien.AdapterListNhanVien;
-import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 import laptrinhandroid.fpoly.dnnhm3.notifiDataChange;
 
@@ -61,13 +58,20 @@ public class QuanLiNhanVien extends AppCompatActivity implements notifiDataChang
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-            chamCongs = GiaoDienChinh.nhanVien1.getListNhanVien();
-            adapterListChamCong.setData(chamCongs);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+      runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              try {
+                  chamCongs = GiaoDienChinh.nhanVien1.getListNhanVien();
+                  adapterListChamCong.setData(chamCongs);
+
+              } catch (SQLException e) {
+                  e.printStackTrace();
+              }
+          }
+      });
+      finishAndRemoveTask();
 
     }
 

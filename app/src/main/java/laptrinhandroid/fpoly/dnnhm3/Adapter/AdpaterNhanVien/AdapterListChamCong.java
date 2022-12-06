@@ -1,27 +1,22 @@
 package laptrinhandroid.fpoly.dnnhm3.Adapter.AdpaterNhanVien;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.ListChamCongBangLuong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChamCong;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class AdapterListChamCong extends RecyclerView.Adapter<AdapterListChamCong.AdapterListChamCongViewHolder> {

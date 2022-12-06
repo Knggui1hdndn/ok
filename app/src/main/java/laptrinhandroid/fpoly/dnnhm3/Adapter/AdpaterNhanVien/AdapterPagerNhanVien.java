@@ -8,11 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.sql.Date;
-import java.util.Calendar;
-
-import laptrinhandroid.fpoly.dnnhm3.DAO.DAOChamCong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.NhanVien.FragmentLich;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.NhanVien.FragmentLuong;
 
@@ -33,10 +28,11 @@ public class AdapterPagerNhanVien extends FragmentStateAdapter {
         if (position == 0) {
             FragmentLich fragmentLich = new FragmentLich();
             fragmentLich.setArguments(bundle);
+
             return fragmentLich;
         }
         FragmentLuong fragmentLuong = new FragmentLuong();
-        fragmentLuong.setArguments(bundle);
+         fragmentLuong.setArguments(bundle);
         return fragmentLuong;
     }
 

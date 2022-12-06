@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChamCong;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.FormatDay;
 

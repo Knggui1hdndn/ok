@@ -28,7 +28,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -48,9 +47,8 @@ import laptrinhandroid.fpoly.dnnhm3.Activity.BaoCaoDonhangActivity;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.Adapter_baocao.BaocaoAdapterLich;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.Adapter_baocao.TopSanPhamAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOBaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BaoCao;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class FragmentCuaHang extends Fragment implements BaocaoAdapterLich.IsenDataTime {

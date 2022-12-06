@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.LoaiSP;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.LoaiSP;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class DAOLoaiSanPham {

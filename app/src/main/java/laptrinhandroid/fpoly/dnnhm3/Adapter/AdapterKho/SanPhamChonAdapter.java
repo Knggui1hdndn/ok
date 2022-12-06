@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import laptrinhandroid.fpoly.dnnhm3.Activity.ChoseProducts;
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChiTietHoaDonNhap;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChiTietHoaDonNhap;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class SanPhamChonAdapter extends RecyclerView.Adapter<SanPhamChonAdapter.SanPhamChonViewHolder> {
     Context context;
     ArrayList<SanPham> arrSP = new ArrayList<>();
-    DAOSanPham daoSanPham;
+    DAOSanPham         daoSanPham = new DAOSanPham();
+
     View viewAlert;
     ChoseProducts choseProducts;
     ExtendedFloatingActionButton btn_continute;
@@ -53,7 +54,6 @@ public class SanPhamChonAdapter extends RecyclerView.Adapter<SanPhamChonAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SanPhamChonViewHolder holder, int position) {
-        daoSanPham = new DAOSanPham();
         SanPham sanPham = arrSP.get(position);
         int[] i = {0};
         if(sanPham != null) {
@@ -68,15 +68,13 @@ public class SanPhamChonAdapter extends RecyclerView.Adapter<SanPhamChonAdapter.
             holder.tv_maSPChon.setText("SP"+sanPham.getMaSP());
             holder.item_btn_number.setVisibility(View.GONE);
             btn_continute=viewAlert.findViewById(R.id.btn_continute);
-//            btn_continute.setVisibility(View.GONE);
-            holder.item_spChon_frag.setOnClickListener(new View.OnClickListener() {
+             holder.item_spChon_frag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     holder.item_btn_number.setVisibility(View.VISIBLE);
                     i[0]=1;
                     choseProducts.sanPhamInterface(sanPham,i[0]);
-//                    btn_continute.setVisibility(View.VISIBLE);
-                }
+                 }
             });
             holder.tv_sub.setOnClickListener(new View.OnClickListener() {
                 @Override

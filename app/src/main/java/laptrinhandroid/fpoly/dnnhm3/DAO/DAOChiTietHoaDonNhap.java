@@ -1,6 +1,7 @@
 package laptrinhandroid.fpoly.dnnhm3.DAO;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -12,8 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChiTietHoaDonNhap;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonNhapKho;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChiTietHoaDonNhap;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonNhapKho;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class DAOChiTietHoaDonNhap {
@@ -42,6 +43,7 @@ public class DAOChiTietHoaDonNhap {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            Log.d("ssssssssssssssss", "Insertchitiethoadonnhap: "+e.getMessage());
         }
         return false;
     }

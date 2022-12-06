@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChamCong;
 import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.FormatDay;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
@@ -48,10 +48,12 @@ public class DAOChamCong implements Serializable {
     }
 
     public boolean updateChamCong(ChamCong chamCong) throws SQLException {
-        String sql = "UPDATE ChamCong  SET " +  " gioBatDau =?," + "gioKetThuc=?" + ",ngay=?" + ",xacNhanChamCong=?" + " WHERE ngay='" + chamCong.getNgay() + "' and maNV='"+chamCong.getMaNV()+"' ";
+        String sql = "UPDATE ChamCong  SET " +  " gioBatDau =?," + "gioKetThuc=?" + ",ngay=?" + ",xacNhanChamCong=?" +
+                " WHERE ngay='" + chamCong.getNgay() + "' and maNV='"+chamCong.getMaNV()+"' ";
         if (objConn != null) {
-            PreparedStatement preparedStatement = objConn.prepareStatement(sql);
-             preparedStatement.setObject(1, chamCong.getGioBatDau());
+            PreparedStatement preparedStatement = null;
+            preparedStatement = objConn.prepareStatement(sql);
+            preparedStatement.setObject(1, chamCong.getGioBatDau());
             preparedStatement.setObject(2, chamCong.getGioKetThuc());
             preparedStatement.setDate(3, chamCong.getNgay());
             preparedStatement.setInt(4, chamCong.getXacNhanChamCong());
@@ -59,7 +61,8 @@ public class DAOChamCong implements Serializable {
                 return true;
             }
         }
-        return false;
+
+         return false;
     }
 
 

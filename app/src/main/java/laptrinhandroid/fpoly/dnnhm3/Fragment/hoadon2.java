@@ -30,8 +30,7 @@ public class hoadon2 extends Fragment {
         faa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(getActivity(), hoadon11111.class);
-                startActivity(intent);
+
 
             }
         });

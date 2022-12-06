@@ -7,11 +7,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
-
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
 
 public class DayViewDecoratorUnconfirmed implements com.prolificinteractive.materialcalendarview.DayViewDecorator {
     @SuppressLint("SimpleDateFormat")

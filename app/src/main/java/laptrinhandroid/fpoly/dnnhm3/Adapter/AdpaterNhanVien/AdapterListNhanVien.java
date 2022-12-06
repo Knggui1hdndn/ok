@@ -1,6 +1,5 @@
 package laptrinhandroid.fpoly.dnnhm3.Adapter.AdpaterNhanVien;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Activity.ListChamCongBangLuong;
 import laptrinhandroid.fpoly.dnnhm3.Activity.QuanLiNhanVien;
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.NhanVien.BottomSheetNhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 

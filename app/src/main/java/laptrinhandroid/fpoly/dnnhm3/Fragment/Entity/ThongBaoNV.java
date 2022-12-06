@@ -1,4 +1,4 @@
-package laptrinhandroid.fpoly.dnnhm3.Entity;
+package laptrinhandroid.fpoly.dnnhm3.Fragment.Entity;
 
 public class ThongBaoNV {
     private int id, maNV;

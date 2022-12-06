@@ -39,8 +39,7 @@ import java.util.Locale;
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.Adapter_baocao.BaocaoAdapterLich;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOBaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BaoCao;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class FragmentLaiLo extends Fragment implements BaocaoAdapterLich.IsenDataTime{

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,11 +17,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,12 +27,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import laptrinhandroid.fpoly.dnnhm3.Activity.GiaoDienChinh;
-import laptrinhandroid.fpoly.dnnhm3.DAO.DAOBangLuong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BangLuong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.ChamCong;
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhanVien;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BangLuong;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.ChamCong;
 import laptrinhandroid.fpoly.dnnhm3.R;
-import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.FormatDay;
 
 public class FragmentLuong extends Fragment {
     View view;
@@ -63,6 +57,7 @@ public class FragmentLuong extends Fragment {
         String ad = bundle.getString("ad");
         try {
             List<BangLuong> bangLuong = (List<BangLuong>) GiaoDienChinh.bangLuong.getListBangLuong(nhanVien);
+            Log.d("sssddđ", "onCreateView: 0"+bangLuong.size()+"  "+nhanVien);
             List<String> list = new ArrayList<>();
             for (int i = 0; i < bangLuong.size(); i++) {
                 list.add("Bảng lương:" + bangLuong.get(i).getNgayThang());
@@ -72,12 +67,12 @@ public class FragmentLuong extends Fragment {
             spinner.setSelection(list.size() - 1);
 
 
-             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
                     float soH = 0f;
                     try {
-                        if(ad!=null) {
+                        if (ad != null) {
                             mRelativeLayout.setOnClickListener(view13 -> {
                                 Dialog dialog = createDialog();
                                 TextInputLayout inputLayout = dialog.findViewById(R.id.luong);
@@ -108,7 +103,8 @@ public class FragmentLuong extends Fragment {
                                 });
                                 dialog.show();
                             });
-                        }                        Calendar calendar = Calendar.getInstance();
+                        }
+                        Calendar calendar = Calendar.getInstance();
                         float hChuNhat = 0;
                         int soChuNhat = 0;
                         int soNgayThuong = 0;

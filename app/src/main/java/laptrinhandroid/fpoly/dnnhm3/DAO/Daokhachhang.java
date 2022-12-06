@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.KhachHang;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.KhachHang;
 import laptrinhandroid.fpoly.dnnhm3.JDBC.DbSqlServer;
 
 public class Daokhachhang {
@@ -91,6 +91,7 @@ public class Daokhachhang {
         List<KhachHang> listTV = new ArrayList<>();
         try {
             listTV = getlistkhachang(sql,id);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -98,7 +99,7 @@ public class Daokhachhang {
 
     }
     public List<KhachHang> getAllkhachang() throws SQLException{
-        String sql = "SELECT * FROM Khachhang"  ;
+        String sql = "SELECT * FROM KhachHang"  ;
         try {
             return getlistkhachang(sql);
         } catch (SQLException e) {

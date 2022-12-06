@@ -58,7 +58,7 @@
                     android:layout_marginTop="15dp"
                     app:cardCornerRadius="75dp">
 
-                    <ImageView
+                    <com.github.chrisbanes.photoview.PhotoView
                         android:id="@+id/avatar"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
@@ -99,7 +99,7 @@
                     android:layout_marginTop="15dp"
                     app:cardCornerRadius="18dp">
 
-                    <ImageView
+                    <com.github.chrisbanes.photoview.PhotoView
                         android:id="@+id/imgCCCD"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
@@ -141,8 +141,8 @@
                     android:layout_marginTop="15dp"
                     app:cardCornerRadius="18dp">
 
-                    <ImageView
-                        android:id="@+id/imgTATS"
+                <com.github.chrisbanes.photoview.PhotoView
+                    android:id="@+id/imgTATS"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitCenter"

@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import laptrinhandroid.fpoly.dnnhm3.Entity.NhaCungCap;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhaCungCap;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class Spinner_nhaCungCap extends ArrayAdapter<NhaCungCap> {

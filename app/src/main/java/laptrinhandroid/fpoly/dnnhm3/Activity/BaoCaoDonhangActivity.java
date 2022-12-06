@@ -19,9 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+ import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.HoadonAdapter1;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.Adapter_baocao.HoadonDateAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOBaoCao;
-import laptrinhandroid.fpoly.dnnhm3.Entity.HoaDonBan;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class BaoCaoDonhangActivity extends AppCompatActivity {
@@ -57,8 +58,9 @@ public class BaoCaoDonhangActivity extends AppCompatActivity {
         if (listHoaDonBan != null){
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
-            HoadonDateAdapter hoadonDateAdapter = new HoadonDateAdapter(this, listHoaDonBan);
-            recyclerView.setAdapter(hoadonDateAdapter);
+            HoadonAdapter1 hoadonAdapter  = new HoadonAdapter1(this, listHoaDonBan);
+//            HoadonDateAdapter hoadonAdapter = new HoadonDateAdapter(this, listHoaDonBan);
+            recyclerView.setAdapter(hoadonAdapter);
         }
 
     }

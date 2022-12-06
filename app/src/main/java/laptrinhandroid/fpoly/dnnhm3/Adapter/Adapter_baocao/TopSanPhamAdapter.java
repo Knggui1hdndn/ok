@@ -16,7 +16,6 @@
 package laptrinhandroid.fpoly.dnnhm3.Adapter.Adapter_baocao;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 import laptrinhandroid.fpoly.dnnhm3.ConvertImg;
-import laptrinhandroid.fpoly.dnnhm3.Entity.BaoCao;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.BaoCao;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class TopSanPhamAdapter extends  RecyclerView.Adapter<TopSanPhamAdapter.ViewHolder> {
