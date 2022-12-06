@@ -117,6 +117,18 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         try {
             nv = nhanVien1.getListNhanVien(intent.getIntExtra("NV", 0));
 
+            nhanVien.setOnClickListener(v -> {
+                if (nv != null) {
+                    Intent intent1 = new Intent(this, MainActivity.class);
+                    intent1.putExtra("NV",nv.getMaNv());
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
+                    startActivity(intent1, options.toBundle());
+                } else {
+                    Intent intent1 = new Intent(this, QuanLiNhanVien.class);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
+                    startActivity(intent1, options.toBundle());
+                }
+            });
              button.setOnClickListener(view5 -> {
 
                     Intent intent1 = new Intent(this, XepLoai.class);
@@ -176,19 +188,9 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         }
         setAdaperViewPager();
         //Chạy chữ
+
         //runLetters();
-        nhanVien.setOnClickListener(v -> {
-            if (nv != null) {
-                Intent intent1 = new Intent(this, MainActivity.class);
-                intent1.putExtra("NV",nv.getMaNv());
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
-                startActivity(intent1, options.toBundle());
-            } else {
-                Intent intent1 = new Intent(this, QuanLiNhanVien.class);
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
-                startActivity(intent1, options.toBundle());
-            }
-        });
+
         donHang.setOnClickListener(v -> {
             Intent intent1 = new Intent(this, MainActivityhoadon.class);
             intent1.putExtra("ch",1);

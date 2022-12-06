@@ -112,7 +112,6 @@ public class FragmentLuong extends Fragment {
                             if (chamCong.getXacNhanChamCong() == 1 && chamCong.getGioBatDau() != null && chamCong.getGioKetThuc() != null) {
                                 soH += chamCong.getGioKetThuc().getTime() - chamCong.getGioBatDau().getTime();
                                 calendar.setTime(chamCong.getNgay());
-                                Log.d("ssssssss", "onCreateView: " + chamCong.getGioKetThuc().getTime() + "  " + chamCong.getGioBatDau().getTime());
 
                                 soNgayThuong++;
                                 if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {

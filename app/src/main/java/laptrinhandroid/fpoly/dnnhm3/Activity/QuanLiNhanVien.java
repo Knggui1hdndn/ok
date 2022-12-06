@@ -71,7 +71,7 @@ public class QuanLiNhanVien extends AppCompatActivity implements notifiDataChang
               }
           }
       });
-      finishAndRemoveTask();
+
 
     }
 

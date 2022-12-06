@@ -37,10 +37,7 @@ public class login extends AppCompatActivity {
         inputPassword.setText("thanhhai");
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Vui lòng chờ ...");
-
-
-        btnLogin.setOnClickListener(view -> {
+        progressDialog.setTitle("Vui lòng chờ ...");btnLogin.setOnClickListener(view -> {
             FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
