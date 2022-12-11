@@ -50,7 +50,6 @@ public class Sanphamadpterban extends RecyclerView.Adapter<Sanphamadpterban.view
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
         int[] i = {0};
-
         if (position < list.size()) {
             SanPham sp = list.get(position);
             if (sp != null) {
@@ -75,10 +74,8 @@ public class Sanphamadpterban extends RecyclerView.Adapter<Sanphamadpterban.view
                             i[0] = 1;
                             hoaDon11111.aaa(sp, i[0]);
                         }
-
                     }
                 });
-
                 holder.BTN2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
 

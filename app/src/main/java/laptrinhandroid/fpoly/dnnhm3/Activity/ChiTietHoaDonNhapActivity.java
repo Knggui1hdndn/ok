@@ -49,7 +49,7 @@ public class ChiTietHoaDonNhapActivity extends AppCompatActivity {
     ArrayList<ChiTietHoaDonNhap> arrChiTietHD = new ArrayList<>();
     private Button btn_datHang;
     private Spinner spinner_ncc;
-    private TextView tv_tongsoluong, tv_tongtienhang, tv_chietkhau, tv_tongchi, tv_ngay, tv_addNCC;
+    private TextView tv_tongsoluong, tv_tongtienhang, tv_tongchi, tv_ngay, tv_addNCC;
     SanPhamThanhToanAdapter adapter;
     DAOSanPham daoSanPham = new DAOSanPham();
     DaoNhaCungCap daoNhaCungCap;
@@ -57,7 +57,7 @@ public class ChiTietHoaDonNhapActivity extends AppCompatActivity {
     DAOHoaDonNhap daoHoaDonNhap;
     DAOChiTietHoaDonNhap daoChiTietHoaDonNhap = new DAOChiTietHoaDonNhap();
     Spinner_nhaCungCap spinnerNhaCungCap;
-    int tongsoluong = 0, tongtienhang = 0, chietKhau = 0, maNCC;
+    int tongsoluong = 0, tongtienhang = 0, maNCC;
     boolean check = false;
 int maNV;
     @Override
@@ -130,7 +130,6 @@ int maNV;
         tv_ngay = findViewById(R.id.tv_ngay_ChiTietHoaDonNhap);
         tv_tongsoluong = findViewById(R.id.tv_chitietSoLuong_ChiTietHoaDonNhap);
         tv_tongtienhang = findViewById(R.id.tv_tongtienNH_ChiTietHoaDonNhap);
-        tv_chietkhau = findViewById(R.id.tv_chietKhau_ChiTietHoaDonNhap);
         tv_tongchi = findViewById(R.id.tv_tongchiNH_ChiTietHoaDonNhap);
         spinner_ncc = findViewById(R.id.spn_NCC);
         tv_addNCC = findViewById(R.id.tv_add_NCC);
@@ -192,7 +191,6 @@ int maNV;
         for (SanPham sanpham : arrSP) {
             tongsoluong += sanpham.getSoLuong();
             tongtienhang += (sanpham.getGiaNhap() * sanpham.getSoLuong());
-            chietKhau += (sanpham.getGiaBan() * sanpham.getSoLuong() - sanpham.getGiaNhap() * sanpham.getSoLuong());
         }
 
         //spiner nha cung
@@ -223,7 +221,6 @@ int maNV;
         tv_ngay.setText(simpleDateFormat.format(new Date()));
         tv_tongsoluong.setText(tongsoluong + "");
         tv_tongtienhang.setText(tongtienhang + " đ");
-        tv_chietkhau.setText(chietKhau + " đ");
         tv_tongchi.setText(tongtienhang + " đ");
 
     }

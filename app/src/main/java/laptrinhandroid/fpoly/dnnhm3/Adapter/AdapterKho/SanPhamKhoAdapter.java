@@ -34,7 +34,7 @@ public class SanPhamKhoAdapter extends RecyclerView.Adapter<SanPhamKhoAdapter.Sa
     public SanPhamKhoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
          ;
          viewAlert = parent;
-        return new SanPhamKhoViewHolder(LayoutInflater.from(context) .inflate(R.layout.custom_sanphamkho, parent, false));
+        return new SanPhamKhoViewHolder(LayoutInflater.from(parent.getContext()) .inflate(R.layout.custom_sanphamkho, parent, false));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SanPhamKhoAdapter extends RecyclerView.Adapter<SanPhamKhoAdapter.Sa
             holder.tv_soluongton.setText("Tồn kho: "+sanPham.getSoLuong()+"");
             holder.tv_maSP.setText("SP"+sanPham.getMaSP());
             holder.tv_tongtienton.setText(String.format("%.0f", sanPham.getGiaNhap())  + " đ");
-            inflater = LayoutInflater.from(context);
+
         }
     }
 

@@ -28,22 +28,23 @@ import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class BottomSheetdigloghoadon extends BottomSheetDialogFragment {
-    TextView name, soluong,tontien,mahoadon,date;
-List<ChiTietHoaDonban> listchitiethoadon;
-RecyclerView recyclerView;
-int position;
+    TextView name, soluong, tontien, mahoadon, date;
+    List<ChiTietHoaDonban> listchitiethoadon;
+    RecyclerView recyclerView;
+    int position;
 
-AdapterchitiethoadonSheet adapterchitiethoadonSheet;
+    AdapterchitiethoadonSheet adapterchitiethoadonSheet;
+
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.buttonsheet, null);
 //        name = view.findViewById(R.id.item_CTHD_tensp);
-        mahoadon=view.findViewById(R.id.tv_id_chitietHDN);
-        recyclerView=view.findViewById(R.id.rcvchitiethoadon);
+        mahoadon = view.findViewById(R.id.tv_id_chitietHDN);
+        recyclerView = view.findViewById(R.id.rcvchitiethoadon);
         soluong = view.findViewById(R.id.item_CTHD_Soluong);
-        tontien=view.findViewById(R.id.item_CTHD_thanhtien);
+        tontien = view.findViewById(R.id.item_CTHD_thanhtien);
 
 
         return view;
@@ -51,38 +52,39 @@ AdapterchitiethoadonSheet adapterchitiethoadonSheet;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //      onViewCreatedđược gọi ngay sau onCreateView(phương thức bạn khởi tạo và tạo tất cả các đố
-//                i tượng của mình, bao gồm cả của bạn TextView)
 
         super.onViewCreated(view, savedInstanceState);
         ((View) view.getParent()).setBackgroundColor(Color.TRANSPARENT);
-        Bundle bundle=getArguments();
+        Bundle bundle = getArguments();
         HoaDonBan hoaDonBan = (HoaDonBan) bundle.getSerializable("keyhoadan");
-        Daochitiethoadon daochitiethoadon= new Daochitiethoadon();
+        Daochitiethoadon daochitiethoadon = new Daochitiethoadon();
         try {
-            listchitiethoadon=  daochitiethoadon.getIdchitietHodon(hoaDonBan);
-            Log.d("ssssssssss", "onViewCreated: "+ Arrays.toString(listchitiethoadon.toArray()));
+            listchitiethoadon = daochitiethoadon.getIdchitietHodon(hoaDonBan);
+            Log.d("ssssssssss", "onViewCreated: " + Arrays.toString(listchitiethoadon.toArray()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 //        name.setText(String.valueOf(listchitiethoadon.get(0).getTenSP())+"");
-        int v=0;int v1=0;int v2=0;String date;
-       for(ChiTietHoaDonban chiTietHoaDonban:listchitiethoadon){
+        int v = 0;
+        int v1 = 0;
+        int v2 = 0;
+        String date;
+        for (ChiTietHoaDonban chiTietHoaDonban : listchitiethoadon) {
+            v += chiTietHoaDonban.getSoLuong();
+            v1 += chiTietHoaDonban.getThanhTien();
+            v2 += chiTietHoaDonban.getMaHD();
 
-          v+= chiTietHoaDonban.getSoLuong();
-          v1+= chiTietHoaDonban.getThanhTien();
-          v2+= chiTietHoaDonban.getMaHD();
+        }
+        soluong.setText(v + "");
+        tontien.setText(v1 + "" + " đ" + "");
+        mahoadon.setText("HD" + v2 + "");
 
-       }
-             soluong.setText(v+"") ;
-             tontien.setText(v1+""+" đ"+"");
-             mahoadon.setText("HD"+v2+"");
-
-        adapterchitiethoadonSheet = new AdapterchitiethoadonSheet(getContext(),listchitiethoadon);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        adapterchitiethoadonSheet = new AdapterchitiethoadonSheet(getContext(), listchitiethoadon);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(adapterchitiethoadonSheet);
     }
-        public static BottomSheetdigloghoadon getInstance(HoaDonBan hoaDonBan){
+
+    public static BottomSheetdigloghoadon getInstance(HoaDonBan hoaDonBan) {
 
         return null;
     }

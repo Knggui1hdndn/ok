@@ -92,8 +92,6 @@ public class DAONhanVien {
             Log.d("ssssssssw", "getListNhanVien: "+list.size());
             return list;
         }
-
- 
         return null;
     }
     public  NhanVien  getListNhanVien(int maNV) throws SQLException {
@@ -157,5 +155,17 @@ public class DAONhanVien {
             return true;
         }
         return false;
+    }
+    public String getTokenAdmin() throws SQLException {
+        String sql = "select token from admin where CONVERT(NVARCHAR(MAX), email)=N'admin@gmail.com'";
+        Statement statement = objConn.createStatement();// Tạo đối tượng Statement.
+        ResultSet rs = statement.executeQuery(sql);
+        Boolean aBoolean=false;
+        while (rs.next()) {
+            return rs.getString(1);
+        }
+        statement.close();// Đóng kết nối
+
+        return null;
     }
 }

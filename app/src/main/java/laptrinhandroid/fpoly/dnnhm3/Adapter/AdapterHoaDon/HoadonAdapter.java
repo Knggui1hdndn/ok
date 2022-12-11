@@ -36,16 +36,15 @@ import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.viewholder> implements Filterable {
     Context context;
-    HashMap<HoaDonBan, String> listhoadon;
-    HashMap<HoaDonBan, String> listhoadon1;
-    DAONhanVien daoNhanVien = new DAONhanVien();
-    List<NhanVien> listnv;
+    List<HoaDonBan> listhoadon;
+    List<HoaDonBan> listold;
+
 //    SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
 
-    public HoadonAdapter(Context context, HashMap<HoaDonBan, String> listhoadon) {
+    public HoadonAdapter(Context context, List<HoaDonBan> listhoadon) {
         this.context = context;
         this.listhoadon = listhoadon;
-        this.listhoadon1 = listhoadon;
+        this.listold = listhoadon;
     }
 
     public HoadonAdapter() {
@@ -61,9 +60,8 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.viewholder
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
 
-        HoaDonBan hd = (HoaDonBan) listhoadon.keySet().toArray()[position];
-
-        holder.txtmanv.setText(String.valueOf(listhoadon.get(hd)));
+        HoaDonBan hd = listhoadon.get(position);
+        holder.txtmanv.setText(String.valueOf("HD"+hd.getMaHDBan()));
         holder.txtngayban.setText(String.valueOf(hd.getNgayBan()));
         holder.txttongtien.setText(String.format("%.0f", hd.getTongTien()) + " đ");
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +71,10 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.viewholder
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("keyhoadan", hd);
                 bottomSheetdigloghoadon.setArguments(bundle);
-                ;
                 bottomSheetdigloghoadon.show(((FragmentActivity) context).getSupportFragmentManager(), bottomSheetdigloghoadon.getTag());
             }
         });
-//           holder.edgiathue.setText(String.valueOf(loaisach.getGiathue()));
+
     }
 
 
@@ -99,16 +96,16 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.viewholder
 
                 String strsearch = charSequence.toString();
                 if (strsearch.isEmpty()) {
-                    listhoadon = listhoadon1;
+                    listhoadon = listold;
                 } else {
-                    HashMap<HoaDonBan, String> hashMap = new HashMap<>();
-                    for (Map.Entry<HoaDonBan, String> hashMap1 : listhoadon.entrySet()) {
-                        if (hashMap1.getValue().toLowerCase(Locale.ROOT).contains(charSequence.toString().toLowerCase(Locale.ROOT))) {
-                            hashMap.put(hashMap1.getKey(), hashMap1.getValue());
+                  List<HoaDonBan> listabc= new ArrayList<>();
+                    for (HoaDonBan hoaDonBan:listhoadon) {
+                        if (String.valueOf(hoaDonBan.getMaHDBan()).toLowerCase().contains(strsearch.toLowerCase())) {
+                           listabc.add(hoaDonBan);
 
                         }
                     }
-                    listhoadon = hashMap;
+                    listhoadon = listabc;
                 }
 
                 FilterResults filterResults = new FilterResults();
@@ -118,7 +115,7 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.viewholder
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                listhoadon = (HashMap<HoaDonBan, String>) filterResults.values;
+                listhoadon = (List<HoaDonBan>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

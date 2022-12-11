@@ -33,7 +33,7 @@ android:foreground="?android:selectableItemBackground"
                 android:id="@+id/img2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/cccd" />
+                android:src="@drawable/ic_baseline_image_24" />
         </androidx.cardview.widget.CardView>
 
         <TextView

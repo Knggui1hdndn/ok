@@ -19,13 +19,18 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jjoe64.graphview.series.DataPoint;
@@ -37,6 +42,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -56,6 +62,7 @@ public class FragmentCuaHang extends Fragment implements BaocaoAdapterLich.IsenD
     int i = 0;
     int isNgay = 0;
     double doanhthu;
+    Date isDate;
 
     CardView cvTime, cvDonHang, cvDonhuy;
     TextView tvTime, tvDoanhThu, tvDonHang, tvDonHuy;
@@ -147,9 +154,8 @@ public class FragmentCuaHang extends Fragment implements BaocaoAdapterLich.IsenD
 
         BaocaoAdapterLich baocaoAdapterLich = new BaocaoAdapterLich(getActivity(), listlich, this);
         recyclerView.setAdapter(baocaoAdapterLich);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);   //dòng kẻ giữa mỗi item
         recyclerView.addItemDecoration(itemDecoration);
     }
@@ -212,6 +218,7 @@ public class FragmentCuaHang extends Fragment implements BaocaoAdapterLich.IsenD
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void getAllDataByDate(int positon, Date date) {
         try {
+            isDate = date;      //get date được chọn để set biểu đồ
             listHoaDonBan.clear();
             listTopSp.clear();
             listHoaDonBan.addAll(daoBaoCao.getListHoaDonBanByDay(positon, date));
@@ -301,17 +308,18 @@ public class FragmentCuaHang extends Fragment implements BaocaoAdapterLich.IsenD
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setUpChart() {
 
         lineChart.clear();
-
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(false);
+        lineChart.setDrawGridBackground(true);
 
-        LineDataSet set1 = new LineDataSet(getValuesChart(true), "Data set 1");
-
+        LineDataSet set1 = new LineDataSet(getValuesChart(true), "Đơn hàng");
+        set1.setDrawCircles(false);
         set1.setFillAlpha(110);
-        set1.setColor(getResources().getColor(R.color.teal_200));
+        set1.setColor(getResources().getColor(R.color.blue));
         set1.setLineWidth(3f);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -321,24 +329,115 @@ public class FragmentCuaHang extends Fragment implements BaocaoAdapterLich.IsenD
 
         lineChart.setData(lineData);
 
+        //lấy trục x từ biểu đồ
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setValueFormatter(new MyXValueFormat());
+
+        xAxis.setGranularity(1f);       //giới hạn giá trị
+
+
     }
 
+
+    public class MyXValueFormat extends ValueFormatter implements IAxisValueFormatter {
+        private ArrayList<String> list;
+        public MyXValueFormat(){
+        }
+        public MyXValueFormat(ArrayList<String> list){
+            this.list = list;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            String ngay = list.get((int) value);
+            return value + "$";
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private ArrayList<Entry> getValuesChart(boolean isThu) {
         ArrayList<Entry> values = new ArrayList<>();
 
         int tongNgay = 0;
-        if (isNgay == 0 || isNgay == 5) tongNgay = 1;
-        else if (isNgay == 1 || isNgay == 3) tongNgay = 7;
-        else tongNgay = 30;
+        int isLoaiNgay = 0;
+        if (isNgay == 0 || isNgay == 5) {
+            isLoaiNgay = 0;
+            tongNgay = 1;
+        } else if (isNgay == 1 || isNgay == 3) {
+            isLoaiNgay = 2;
+            tongNgay = 7;
+        } else {
+            isLoaiNgay = 3;
+            //check tháng trong list
+            if (listHoaDonBan.size() > 0) {
+                int thang = Integer.parseInt(sdfMonth.format(listHoaDonBan.get(0).getNgayBan()));
+                if (thang == 1 || thang == 3 || thang == 3 || thang == 3 || thang == 3 || thang == 3 || thang == 3)
+                    tongNgay = 31;
+                else if (thang == 2) tongNgay = 28;
+                else tongNgay = 30;
+                // không thì lấy tháng hiện tại
+            } else {
+                int thang = Integer.parseInt(sdfMonth.format(Calendar.getInstance().getTime()));
+                if (thang == 1 || thang == 3 || thang == 3 || thang == 3 || thang == 3 || thang == 3 || thang == 3)
+                    tongNgay = 31;
+                else if (thang == 2) tongNgay = 28;
+                else tongNgay = 30;
+            }
+        }
 
-        for (int i = 1; i < tongNgay; i++) {
-            int sodon = 0;
-            for (HoaDonBan hb : listHoaDonBan) {
-                if (i == Integer.parseInt(sdfDate.format(hb.getNgayBan()))) {
+//        for (int i = 1; i <= tongNgay; i++) {
+//            int sodon = 0;
+//            for (HoaDonBan hb : listHoaDonBan) {
+//                if (i == Integer.parseInt(sdfDate.format(hb.getNgayBan()))) {
+//                    sodon++;
+//                }
+//            }
+//            values.add(new Entry(i, Float.valueOf(sodon)));
+//        }
+
+//GETTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+        // loại ngày 3 là 30 ngày
+        if (isLoaiNgay == 3) {
+            for (int i = 1; i <= tongNgay; i++) {
+                int sodon = 0;
+                for (HoaDonBan hb : listHoaDonBan) {
+                    if (i == Integer.parseInt(sdfDate.format(hb.getNgayBan()))) {
+                        sodon++;
+                    }
+                }
+                values.add(new Entry(i, Float.valueOf(sodon)));
+            }
+        }
+        //loại ngày 2 là 7 ngày
+        else if (isLoaiNgay == 2) {
+            //lấy ngày đầu tuần ở daoBaoCao
+            Calendar cal = Calendar.getInstance();
+            if (listHoaDonBan.size() > 0) cal.setTime(listHoaDonBan.get(0).getNgayBan());
+            else cal.getTime();
+            LocalDate localDate = LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE));
+            String stringngaydautuan = daoBaoCao.getFirstDayThisWeek(localDate, cal).substring(8); //cắt 8 ký tự đầu
+            int ngaydautuan = Integer.parseInt(stringngaydautuan);
+
+            for (int i = ngaydautuan; i <= ngaydautuan + 6; i++) {
+                int sodon = 0;
+                for (HoaDonBan hb : listHoaDonBan) {
+                    int ngayHint = i;
+                    if (ngayHint > 30) ngayHint -= 30;
+                    if (ngayHint == Integer.parseInt(sdfDate.format(hb.getNgayBan()))) {
+                        sodon++;
+                    }
+                }
+                values.add(new Entry(i, Float.valueOf(sodon)));
+            }
+            // loại 1 ngày
+        } else {
+            for (int i = 1; i <= tongNgay; i++) {
+                int sodon = 0;
+                for (HoaDonBan hb : listHoaDonBan) {
                     sodon++;
                 }
+                values.add(new Entry(Integer.parseInt(sdfDate.format(isDate)), Float.valueOf(sodon)));
             }
-            values.add(new Entry(i, Float.valueOf(sodon)));
         }
 
 

@@ -20,7 +20,7 @@ import laptrinhandroid.fpoly.dnnhm3.R;
 
 public class Adapterchitiet extends RecyclerView.Adapter<Adapterchitiet.viewholder> {
     Context context;
-    List<SanPham> list= new ArrayList<>();
+    List<SanPham> list;
     DAOSanPham daoSanPham;
 
     public Adapterchitiet(Context context, List<SanPham>list) {

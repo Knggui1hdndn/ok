@@ -24,7 +24,7 @@ import laptrinhandroid.fpoly.dnnhm3.R;
 public class SanPhamChonAdapter extends RecyclerView.Adapter<SanPhamChonAdapter.SanPhamChonViewHolder> {
     Context context;
     ArrayList<SanPham> arrSP = new ArrayList<>();
-    DAOSanPham         daoSanPham = new DAOSanPham();
+    DAOSanPham daoSanPham = new DAOSanPham();
 
     View viewAlert;
     ChoseProducts choseProducts;

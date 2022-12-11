@@ -37,8 +37,7 @@ public class QuanLyKho extends AppCompatActivity {
         setContentView(R.layout.activity_quan_ly_kho);
         tabLayout_kho = findViewById(R.id.tablayout);
         viewPager_kho = findViewById(R.id.viewpager);
-        adapter = new ViewPagerAdapter(QuanLyKho.this, qlKho_fragment1, getIntent().getIntExtra("maNV", 0));
-        viewPager_kho.setAdapter(adapter);
+
         toolbar_kho = findViewById(R.id.toolBar_kho);
         toolbar_kho.setTitleTextColor(Color.WHITE);
         toolbar_kho.setTitle("Kho hàng");
@@ -46,7 +45,8 @@ public class QuanLyKho extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
-
+        adapter = new ViewPagerAdapter(QuanLyKho.this, qlKho_fragment1, getIntent().getIntExtra("maNV", 0));
+        viewPager_kho.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout_kho, viewPager_kho, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
@@ -74,10 +74,7 @@ public class QuanLyKho extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.item_kho, menu);
-//        MenuItem searchViewItem = menu.findItem(R.id.app_bar_search);
-//        final android.widget.SearchView searchView = (android.widget.SearchView) MenuItemCompat.getActionView(searchViewItem);
+
         getMenuInflater().inflate(R.menu.item_kho, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_searchkho).getActionView();

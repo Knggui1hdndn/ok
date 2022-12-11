@@ -104,8 +104,8 @@
                         android:id="@+id/imgCCCD"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/cccd" />
+                        android:scaleType="fitCenter"                         android:src="@drawable/ic_baseline_image_24" />
+
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
@@ -147,7 +147,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/ktats" />
+                        android:src="@drawable/ic_baseline_image_24" />
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 

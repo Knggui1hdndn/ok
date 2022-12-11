@@ -34,7 +34,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     private static String KEY_ORDER_OBJECT = "order_object";
     private HoaDonNhapKho mHoaDonNhap;
     private RecyclerView recyclerView;
-    private TextView tv_maHD,tv_ngayHD,tv_tongsoluong, tv_tongtienhang, tv_chietkhau, tv_tongchi,tv_tongchi2;
+    private TextView tv_maHD,tv_ngayHD,tv_tongsoluong, tv_tongtienhang, tv_tongchi,tv_tongchi2;
     AdapterchitiethoadonNhap adapter;
     DAOChiTietHoaDonNhap daoChiTietHoaDonNhap;
     DAOSanPham daoSanPham;
@@ -90,7 +90,6 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         recyclerView=view.findViewById(R.id.recyclerview_lsProduct_indetail);
         tv_tongsoluong=view.findViewById(R.id.tv_chitietSoLuong);
         tv_tongtienhang=view.findViewById(R.id.tv_tongtienNH);
-        tv_chietkhau=view.findViewById(R.id.tv_chietKhau);
         tv_tongchi=view.findViewById(R.id.tv_tongchiNH);
         tv_tongchi2=view.findViewById(R.id.tv_tongchiNH2);
     }
@@ -115,7 +114,6 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         tv_ngayHD.setText(mHoaDonNhap.getNgayNhap()+"");
         tv_tongsoluong.setText(tongsoluong+"");
         tv_tongtienhang.setText(String.format("%.0f",mHoaDonNhap.getTongTien())+" đ");
-        tv_chietkhau.setText("30%");
         tv_tongchi.setText(String.format("%.0f",mHoaDonNhap.getTongTien())+" đ");
         tv_tongchi2.setText(String.format("%.0f",mHoaDonNhap.getTongTien())+" đ");
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

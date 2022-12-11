@@ -76,36 +76,16 @@ public class Daokhachhang {
         return false;
     }
 
-    public List<KhachHang> getlistkhachang(String sql, String...selectionArgs) throws SQLException {
+    public List<KhachHang> getlistkhachang() throws SQLException {
         List<KhachHang> list = new ArrayList<>();
         Statement statement = objConn.createStatement();
+        String sql = "SELECT * FROM KhachHang"  ;
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
             list.add(new KhachHang(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));// Đọc dữ liệu từ ResultSet
         }
-
         return list;
     }
-    public KhachHang getIdKhachhang(String id) {
-        String sql = "SELECT * FROM KhachHang WHERE maKhach='"+id+"'";
-        List<KhachHang> listTV = new ArrayList<>();
-        try {
-            listTV = getlistkhachang(sql,id);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listTV.get(0);
-
-    }
-    public List<KhachHang> getAllkhachang() throws SQLException{
-        String sql = "SELECT * FROM KhachHang"  ;
-        try {
-            return getlistkhachang(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }

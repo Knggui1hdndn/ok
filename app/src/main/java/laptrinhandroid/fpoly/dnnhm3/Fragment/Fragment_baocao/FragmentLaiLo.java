@@ -21,6 +21,7 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -274,7 +275,7 @@ public class FragmentLaiLo extends Fragment implements BaocaoAdapterLich.IsenDat
 
         BaocaoAdapterLich baocaoAdapterLich = new BaocaoAdapterLich(getActivity(), listlich, this);
         recyclerView.setAdapter(baocaoAdapterLich);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);   //dòng kẻ giữa mỗi item

@@ -350,7 +350,7 @@ public class DAOSanPham {
                 break;
             }
             case 2:{
-                hint = " WHERE soLuong < 0";
+                hint = " WHERE soLuong <= 0";
                 break;
             }
         }

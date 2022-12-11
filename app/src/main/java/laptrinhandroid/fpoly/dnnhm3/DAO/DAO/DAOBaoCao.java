@@ -29,15 +29,15 @@ public class DAOBaoCao {
     Connection connection;
 
     SimpleDateFormat sfmNgay = new SimpleDateFormat("dd");
-
+    DbSqlServer db;
     public DAOBaoCao(){
-        DbSqlServer db = new DbSqlServer(); // hàm khởi tạo để mở kết nối
-        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
+        db = new DbSqlServer(); // hàm khởi tạo để mở kết nối
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<HoaDonBan> getListHoaDonBanByDay(int position, Date date) throws SQLException {
-
+        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
         List<HoaDonBan> list = new ArrayList<>();
         Statement statement = connection.createStatement();
 
@@ -46,12 +46,13 @@ public class DAOBaoCao {
         while (rs.next()) {
             list.add(new HoaDonBan(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getFloat(5)));// Đọc dữ liệu từ ResultSet
         }
+        connection.close();
         return list;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<HoaDonNhapKho> getListHoaDonNhapByDay(int position, Date date) throws SQLException {
-
+        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
         List<HoaDonNhapKho> list = new ArrayList<>();
         Statement statement = connection.createStatement();
 
@@ -61,11 +62,13 @@ public class DAOBaoCao {
             list.add(new HoaDonNhapKho(rs.getInt(1),rs.getInt(2),
                     rs.getInt(3),rs.getDate(4),rs.getFloat(5))); //ddoc du lieu tu resultset
         }
+        connection.close();
         return list;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<BaoCao> getListLaiLo(int position, Date date) throws SQLException {
+        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
         List<BaoCao> list = new ArrayList<>();
         Statement statement = connection.createStatement();
         String sql = "select ChiTietHoaDon.tenSP, ChiTietHoaDon.soLuong, ChiTietHoaDon.donGia, ChiTietHoaDon.thanhTien, SanPham.giaNhap, SanPham.giaBan, \n" +
@@ -78,10 +81,12 @@ public class DAOBaoCao {
                     rs.getFloat(5), rs.getFloat(6),
                     rs.getDate(7)));// Đọc dữ liệu từ ResultSet
         }
+        connection.close();
         return list;
     }
 
     public List<SanPham> getListSanPham() throws SQLException {
+        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
         List<SanPham> list = new ArrayList<>();
         Statement statement = connection.createStatement();
         String sql = " SELECT * FROM  SanPham";
@@ -89,11 +94,13 @@ public class DAOBaoCao {
         while (rs.next()) {
             list.add(new SanPham(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4), rs.getFloat(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9)));// Đọc dữ liệu từ ResultSet
         }
+        connection.close();
         return list;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<BaoCao> getListTopSanPham(int position, Date date) throws SQLException {
+        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
         List<BaoCao> listTop = getListSumSanPham(position, date);
         List<BaoCao> listgetAll = new ArrayList<>();
         Statement statement = connection.createStatement();
@@ -108,11 +115,13 @@ public class DAOBaoCao {
             }
             rs.close();
         }
+        connection.close();
         return listgetAll;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<BaoCao> getListSumSanPham(int position, Date date) throws SQLException {
+        connection = db.openConnect(); // tạo mới DAO thì mở kết nối CSDL
         List<BaoCao> listSum = new ArrayList<>();
         Statement statement = connection.createStatement();
         String sql = "select ChiTietHoaDon.maSp, SUM(ChiTietHoaDon.soLuong), SUM(ChiTietHoaDon.thanhTien) from ChiTietHoaDon " +
@@ -125,6 +134,7 @@ public class DAOBaoCao {
             listSum.add(new BaoCao(rs.getInt(1), rs.getInt(2), rs.getDouble(3)));// Đọc dữ liệu từ ResultSet
         }
         rs.close();
+        connection.close();
         return listSum;
     }
 

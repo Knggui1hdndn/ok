@@ -71,7 +71,6 @@ public class Daochitiethoadon {
     }
 
 
-
     public List<ChiTietHoaDonban> getListchitietHoadonban(String sql) throws SQLException {
         List<ChiTietHoaDonban> list = new ArrayList<>();
         Statement statement = connection.createStatement();// Tạo đối tượng Statement.
@@ -96,16 +95,5 @@ public class Daochitiethoadon {
         return list;
     }
 
-
-    public List<ChiTietHoaDonban> getAllchitiethoadon() throws SQLException{
-
-        String sql = "SELECT * FROM ChiTietHoaDon"  ;
-        try {
-            return getListchitietHoadonban(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }

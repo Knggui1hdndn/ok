@@ -106,15 +106,10 @@ public class hoadon11111 extends AppCompatActivity implements AAA{
                     }
                 });
         snackbar.setActionTextColor(Color.BLACK);
-
         snackbar.show();
 
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-    }
 }

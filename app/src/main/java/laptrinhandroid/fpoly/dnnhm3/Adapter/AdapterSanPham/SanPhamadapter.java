@@ -83,6 +83,8 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
     }
 
     private void opendialog(int position) {
+        SanPham sanPham = new SanPham();
+        sanPham=arrSP.get(position);
         AlertDialog.Builder builder=new  AlertDialog.Builder(context);
         LayoutInflater inflater= ((Activity)context).getLayoutInflater();
         View v=inflater.inflate(R.layout.dialog_sanpham,null);
@@ -90,6 +92,8 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
         TextInputEditText ed_tenSanPham, ed_giaban, ed_giavon;
         Spinner spn_loaiSP;
         Button btn_them, btn_huy;
+        ImageView img_sp;
+        img_sp= v.findViewById(R.id.imv_anhsanpham);
         ed_giaban = v.findViewById(R.id.ed_giaban);
         ed_tenSanPham = v.findViewById(R.id.ed_tensanpham);
         ed_giavon = v.findViewById(R.id.ed_giavon);
@@ -97,6 +101,11 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
         btn_them = v.findViewById(R.id.btn_themsp);
         btn_huy = v.findViewById(R.id.btn_huy);  v.findViewById(R.id.btn_themanhsp).setVisibility(View.GONE);
         btn_them.setText("Cap nhat");
+        img_sp.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sanPham.getAnh()));
+        ed_giaban.setText(sanPham.getGiaBan()+"");
+        ed_tenSanPham.setText(sanPham.getTenSP()+"");
+        ed_giavon.setText(sanPham.getGiaNhap()+"");
+
         List<String> loaiSP = new ArrayList<>();
         Dialog dialog=builder.create();
         dialog.show();
@@ -111,19 +120,19 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
         ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, loaiSP);
         spn_loaiSP.setAdapter(adapterLoaiSP);
 
+        SanPham finalSanPham = sanPham;
         btn_them.setOnClickListener(v1 -> {
-            SanPham sanPham = new SanPham();
-            sanPham=arrSP.get(position);
+
             String LoaiSP = (String) spn_loaiSP.getSelectedItem();
             String[] maloai = LoaiSP.split("\\.");
-            sanPham.setTenSP(ed_tenSanPham.getText().toString()+"");
-            sanPham.setGiaNhap(Float.parseFloat(ed_giavon.getText().toString()));
-            sanPham.setGiaBan(Float.parseFloat(ed_giaban.getText().toString()));
-            sanPham.setLoaiSP(Integer.parseInt(maloai[0]));
-            sanPham.setAnh(sanPham.getAnh());
+            finalSanPham.setTenSP(ed_tenSanPham.getText().toString()+"");
+            finalSanPham.setGiaNhap(Float.parseFloat(ed_giavon.getText().toString()));
+            finalSanPham.setGiaBan(Float.parseFloat(ed_giaban.getText().toString()));
+            finalSanPham.setLoaiSP(Integer.parseInt(maloai[0]));
+            finalSanPham.setAnh(finalSanPham.getAnh());
  //            ((SanPhamActivity) context).addSP(sanPham);
             try {
-                if (daoSanPham.updateSanPham(sanPham)){
+                if (daoSanPham.updateSanPham(finalSanPham)){
                     Toast.makeText(context, "Cập nhật sản phẩm thành công", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                     notifyDataSetChanged();

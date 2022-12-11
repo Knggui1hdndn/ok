@@ -119,7 +119,7 @@ public class FragmentKhoHang extends Fragment {
     private double getGiaTriTonKho(){
         double tong = 0;
         for (SanPham sp: listSanPham){
-            tong = sp.getGiaBan() * sp.getSoLuong();
+            tong += sp.getGiaBan() * sp.getSoLuong();
         }
         tvGiatritonkho.setText(String.valueOf(forMatNumber(tong)) + " ₫");
         return tong;

@@ -60,6 +60,7 @@ public class BaoCaoPhanTichActivity extends AppCompatActivity {
                 break;
             }
 
+
         }
 
         if (list != null){

@@ -93,7 +93,7 @@ public class MainActivityhoadon extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                haodon1.InforSearch(s);
+                haodon1.send(s);
                 return true;
             }
         });

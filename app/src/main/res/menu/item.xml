@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
     <item
         android:icon="@drawable/ic_baseline_search_24"
         android:title="tim kiem"
         android:id="@+id/menuseach"
         app:showAsAction="ifRoom|withText"
         app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:icon="@drawable/invoice"
+        android:title="Đơn hàng"
+        android:id="@+id/donHang"/>
 
 </menu>

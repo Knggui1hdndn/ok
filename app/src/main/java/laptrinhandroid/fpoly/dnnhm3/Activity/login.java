@@ -3,12 +3,19 @@ package laptrinhandroid.fpoly.dnnhm3.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,7 +27,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.sql.SQLException;
 
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAONhanVien;
-import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
@@ -35,13 +41,18 @@ public class login extends AppCompatActivity {
         EditText inputPassword = findViewById(R.id.inputPassword);
         inputEmail.setText("haidzkkk.gamil.com");
         inputPassword.setText("thanhhai");
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("Vui lòng chờ ...");btnLogin.setOnClickListener(view -> {
+
+Dialog dialog=new Dialog(this);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.CENTER);
+         dialog.setContentView(R.layout.item_progress);
+
+
+        btnLogin.setOnClickListener(view -> {
+            dialog.show();
             FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    progressDialog.show();
                     if (!TextUtils.isEmpty(inputEmail.getText().toString()) && !TextUtils.isEmpty(inputPassword.getText().toString())) {
                         try {
                             NhanVien nhanVien = new DAONhanVien().checkLogin(inputEmail.getText().toString(), inputPassword.getText().toString());
@@ -100,4 +111,14 @@ public class login extends AppCompatActivity {
 
         });
     }
+
+//    public class CustomProgress extends Dialog {
+//
+//        public CustomProgress(Context context) {
+//            super(context);
+//
+//            View view = LayoutInflater.from(context).inflate(R.layout.item_progress, null);
+//            setContentView(view);
+//        }
+//    }
 }

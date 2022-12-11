@@ -35,15 +35,16 @@ import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.HoaDonBan;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.NhanVien;
 import laptrinhandroid.fpoly.dnnhm3.Interface.InforSearch;
 import laptrinhandroid.fpoly.dnnhm3.R;
+import laptrinhandroid.fpoly.dnnhm3.XuLiNgay.send;
 
-public class haodon1 extends Fragment implements InforSearch {
+public class haodon1 extends Fragment implements send {
 
     RecyclerView recyclerView;
     FloatingActionButton faa;
     DAOhoadon daohoadon;
     HoadonAdapter hoadonAdapter;
-    HashMap<HoaDonBan, String> list;
-    HashMap<HoaDonBan, String> hoaDonBans = new HashMap<>();
+    List<HoaDonBan> list;
+
 
     public haodon1() {
     }
@@ -56,34 +57,13 @@ public class haodon1 extends Fragment implements InforSearch {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         faa = view.findViewById(R.id.floating1);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                daohoadon = new DAOhoadon();
-                try {
-                    list = daohoadon.getAllhoadon1();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        List<Map.Entry<HoaDonBan, String>> list1 = new ArrayList(list.entrySet());
-
-
-        // Sorting a List
-        Collections.sort(list1, new Comparator<Map.Entry<HoaDonBan, String>>() {
-            @Override
-            public int compare(Map.Entry<HoaDonBan, String> hoaDonBanStringEntry, Map.Entry<HoaDonBan, String> t1) {
-                return hoaDonBanStringEntry.getKey().getNgayBan().compareTo(t1.getKey().getNgayBan());
-            }
-        });
-
-        // Convert List to Map
-        HashMap<HoaDonBan, String> sortedMap = new LinkedHashMap<>();
-        for (Map.Entry<HoaDonBan, String> entry : list1) {
-            sortedMap.put(entry.getKey(), entry.getValue());
+        daohoadon= new DAOhoadon();
+        try {
+            list=daohoadon.getListHoadonban();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        hoadonAdapter = new HoadonAdapter(getContext(), sortedMap);
+        hoadonAdapter=new HoadonAdapter(getContext(),list);
         recyclerView.setAdapter(hoadonAdapter);
         faa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,26 +80,17 @@ public class haodon1 extends Fragment implements InforSearch {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    list = daohoadon.getAllhoadon1();
-//                     hoadonAdapter = new HoadonAdapter(getContext(), list);
-//                     recyclerView.setAdapter(hoadonAdapter);
-                    hoadonAdapter.notifyDataSetChanged();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        list.clear();
+        try {
+            list.addAll(daohoadon.getListHoadonban()) ;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        hoadonAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void InforSearch(String s) {
-
+    public void send(String s) {
             hoadonAdapter.getFilter().filter(s);
-
-
     }
 }

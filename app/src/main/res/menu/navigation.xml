@@ -3,7 +3,7 @@
     <item android:title="Quản lí của hàng">
         <menu>
             <item
-                android:icon="@drawable/invoice"
+                android:icon="@drawable/bill"
                 android:title="Đơn hàng"
                 android:id="@+id/donHang"/>
             <item
@@ -15,11 +15,11 @@
                 android:title="Quản lí kho"
                 android:id="@+id/qlKho"/>
             <item
-                android:icon="@drawable/analytics"
+                android:icon="@drawable/barchart"
                 android:title="Báo cáo thống kê"
                 android:id="@+id/thongKe"/>
             <item
-                android:icon="@drawable/group"
+                android:icon="@drawable/employee"
                 android:title="Quản lí nhân viên"
                 android:id="@+id/qlNhanVien"/>
         </menu>

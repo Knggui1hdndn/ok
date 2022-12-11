@@ -58,11 +58,11 @@ public class Chitiethoadon extends AppCompatActivity {
     Adapterchitiet adapterchitiet;
     RecyclerView recyclerView;
     //list
-    List<HoaDonBan> hoaDonBanList = new ArrayList<>();
+    List<HoaDonBan> hoaDonBanList ;
     List<KhachHang> listkh;
-    List<NhanVien> listnv = new ArrayList<>();
+    List<NhanVien> listnv ;
     List<SanPham> listsp;
-    List<ChiTietHoaDonban> listchitiethoadon;
+
     //dao
     DAOhoadon daOhoadon;
     Daokhachhang daokhachhang;
@@ -76,10 +76,8 @@ public class Chitiethoadon extends AppCompatActivity {
     long l = 0;
     long f = 0;
     TextView date;
-    int makh, manv, soluongsp, masp, mahd, position;
-    String namesp;
-    int soluona, soluongb, tongsl;
-    int positon;
+    int makh, manv;
+
     List<SanPham> sanPhams;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     boolean check = false;
@@ -99,30 +97,12 @@ public class Chitiethoadon extends AppCompatActivity {
         spinner1 = findViewById(R.id.spinernhanvienhd);
         spinner2 = findViewById(R.id.CTHD_khachhang);
         toolbar.setTitle("Xác nhận đơn hàng ");
-        daochitiethoadon = new Daochitiethoadon();
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                daOhoadon = new DAOhoadon();
-                daokhachhang = new Daokhachhang();
-                daoSanPham = new DAOSanPham();
-                try {
-                    listchitiethoadon = daochitiethoadon.getAllchitiethoadon();
-                    hoaDonBanList = daOhoadon.getAllhoadon();
-                    listkh = daokhachhang.getAllkhachang();
-                    listsp = daoSanPham.getListSanPham();
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         recyclerView = findViewById(R.id.Recychodon);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        //spinernhanvien
+
         listnv = new ArrayList<NhanVien>();
         daoNhanVien = new DAONhanVien();
         try {
@@ -157,7 +137,7 @@ public class Chitiethoadon extends AppCompatActivity {
         daokhachhang = new Daokhachhang();
         try {
             listkh.clear();
-            listkh.addAll(daokhachhang.getAllkhachang());
+            listkh.addAll(daokhachhang.getlistkhachang());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,11 +156,11 @@ public class Chitiethoadon extends AppCompatActivity {
 
             }
         });
-//       listsp = new ArrayList<>();
-//        soluongb=listsp.get(positon).getSoLuong();
 
 
-        Log.d("ppppp", "onClick: " + soluongb);
+
+
+
         sanPhams = (List<SanPham>) getIntent().getSerializableExtra("key");
         adapterchitiet = new Adapterchitiet(getApplicationContext(), sanPhams);
         recyclerView.setAdapter(adapterchitiet);
@@ -236,8 +216,8 @@ public class Chitiethoadon extends AppCompatActivity {
         hoaDonBan.setNgayBan(new java.sql.Date(System.currentTimeMillis()));
         int i=0;
         if (new DAOhoadon().Insert(hoaDonBan)) {
-             List<HoaDonBan> maHoaDon = new DAOhoadon().getAllhoadon();
-            int maHD = maHoaDon.get(maHoaDon.size() - 1).getMaHDBan();
+             List<HoaDonBan> maHoaDon = new DAOhoadon().getListHoadonban();
+            int maHD = maHoaDon.get(maHoaDon.size()-1).getMaHDBan();
             Daochitiethoadon daoChiTietHoaDonNhap = new Daochitiethoadon();
             for (SanPham sanPham : sanPhams) {
                 if (daoChiTietHoaDonNhap.Insertchitiethoadon(new ChiTietHoaDonban(maHD, sanPham.getMaSP(),
@@ -252,16 +232,6 @@ public class Chitiethoadon extends AppCompatActivity {
             }
         }
         return i;
-    }
-
-    private void Checkinsertdathang(boolean check1) {
-        if (check1 == true) {
-            Toast.makeText(Chitiethoadon.this, "dat hang thanh cong", Toast.LENGTH_SHORT).show();
-            finish();
-
-        } else {
-            Toast.makeText(Chitiethoadon.this, "dat hang that bai", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -305,23 +275,13 @@ public class Chitiethoadon extends AppCompatActivity {
                     Toast.makeText(Chitiethoadon.this, "Sđt không được để trống", Toast.LENGTH_SHORT).show();
                 } else if (check > 0) {
                     KhachHang khachHang = new KhachHang();
-
                     khachHang.setHoTen(txtname.getText().toString());
                     khachHang.setDiaChi(txtdiachi.getText().toString());
                     khachHang.setSoDT(txtSdt.getText().toString());
                     try {
                         if (daokhachhang.addKhachhang(khachHang)) {
-                            Log.e("sssss", "onClick: ");
-                            Toast.makeText(Chitiethoadon.this, "thanh cong", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            listsp.clear();
-                            daokhachhang = new Daokhachhang();
-                            try {
-                                listkh = (ArrayList<KhachHang>) daokhachhang.getAllkhachang();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
 
+                            Toast.makeText(Chitiethoadon.this, "thanh cong", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(Chitiethoadon.this, "khong thanh cong" +
                                     "", Toast.LENGTH_SHORT).show();

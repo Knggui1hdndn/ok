@@ -37,7 +37,8 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
     DAOHoaDonNhap daoHoaDonNhap;
     HoaDonNhapAdapter adapter;
     QuanLyKho quanLyKho;
-int maNV;
+    int maNV;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,31 +57,30 @@ int maNV;
         inflater = getLayoutInflater();
         floatingActionButton = view.findViewById(R.id.floatbtn_addbill);
         rcyPm = view.findViewById(R.id.recyclerview_lsBill);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
-        rcyPm.setLayoutManager(layoutManager);
-        maNV=getArguments().getInt("maNV");
+        rcyPm.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        maNV = getArguments().getInt("maNV");
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(), ChoseProducts.class);
-                intent.putExtra("maNV",maNV);
+                Intent intent = new Intent(getContext(), ChoseProducts.class);
+                intent.putExtra("maNV", maNV);
                 startActivity(intent);
             }
         });
 
-getActivity().runOnUiThread(new Runnable() {
-    @Override
-    public void run() {
-        daoHoaDonNhap = new DAOHoaDonNhap();
-        try {
-            arrHDN = (ArrayList<HoaDonNhapKho>) daoHoaDonNhap.getListHoaDonNhap();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Log.d("loiii", "onViewCreated: " + e.getMessage());
-        }
-    }
-});
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                daoHoaDonNhap = new DAOHoaDonNhap();
+                try {
+                    arrHDN = (ArrayList<HoaDonNhapKho>) daoHoaDonNhap.getListHoaDonNhap();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Log.d("loiii", "onViewCreated: " + e.getMessage());
+                }
+            }
+        });
         adapter = new HoaDonNhapAdapter((QuanLyKho) mContext, arrHDN);
         rcyPm.setAdapter(adapter);
 
@@ -91,18 +91,7 @@ getActivity().runOnUiThread(new Runnable() {
     @Override
     public void onResume() {
         super.onResume();
-       getActivity().runOnUiThread(new Runnable() {
-           @Override
-           public void run() {
-               arrHDN.clear();
-               try {
-                   arrHDN.addAll(daoHoaDonNhap.getListHoaDonNhap());
-               } catch (SQLException e) {
-                   e.printStackTrace();
-               }
-               adapter.notifyDataSetChanged();
-           }
-       });
+
     }
 
     @Override

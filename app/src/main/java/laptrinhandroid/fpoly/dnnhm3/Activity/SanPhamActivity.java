@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterSanPham.ViewSanPhamAdapter;
  import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
@@ -30,7 +32,7 @@ import laptrinhandroid.fpoly.dnnhm3.addsp;
 public class SanPhamActivity extends AppCompatActivity implements addsp {
  
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     Toolbar toolbar;
 FragmentSanPham sanPham;
     @SuppressLint("MissingInflatedId")
@@ -49,11 +51,19 @@ FragmentSanPham sanPham;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
         sanPham=new FragmentSanPham();
-        ViewSanPhamAdapter viewSanPhamAdapter= new ViewSanPhamAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,sanPham);
+        ViewSanPhamAdapter viewSanPhamAdapter= new ViewSanPhamAdapter(this,sanPham);
         viewPager.setAdapter(viewSanPhamAdapter);
 
-        tabLayout.setupWithViewPager(viewPager);
-
+        new TabLayoutMediator(tabLayout,viewPager , (TabLayoutMediator.TabConfigurationStrategy) (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Sản phẩm");
+                    break;
+                case 1:
+                    tab.setText("Danh mục");
+                    break;
+            }
+        }).attach();
     }
 
     @Override

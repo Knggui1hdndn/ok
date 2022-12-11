@@ -307,7 +307,8 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                             if (daoChamCong.updateChamCong(chamCong)) {
                                 hideView();
                                 txtMessage.setText("Đang chờ xác nhận");
-                                new FcmNotificationsSender(nv.getToken(), "Nhân viên " + nv.getHoTen() + " yêu cầu xác nhận công", "Nhấn vào đây để đi đến xác nhận", GiaoDienChinh.this).SendNotifications();
+                                String tokenAdmin=nhanVien1.getTokenAdmin();
+                                new FcmNotificationsSender(tokenAdmin, "Nhân viên " + nv.getHoTen() + " yêu cầu xác nhận công", "Nhấn vào đây để đi đến xác nhận", GiaoDienChinh.this).SendNotifications();
                                 BangLuong bangLuong1 = bangLuong.getBangLuong(nv.getMaNv());
                                 switch (getTop()) {
                                     case 1:
