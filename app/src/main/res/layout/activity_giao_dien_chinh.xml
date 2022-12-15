@@ -123,10 +123,10 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
                                             android:layout_gravity="center"
-                                            android:layout_margin="5dp"
+                                            android:layout_marginTop="15dp"
                                             android:background="@drawable/store" />
 
                                         <TextView
@@ -154,10 +154,10 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
                                             android:layout_gravity="center"
-                                            android:layout_margin="5dp"
+                                            android:layout_marginTop="15dp"
                                             android:background="@drawable/bill" />
 
                                         <TextView
@@ -184,10 +184,10 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
                                             android:layout_gravity="center"
-                                            android:layout_margin="5dp"
+                                            android:layout_marginTop="15dp"
                                             android:background="@drawable/products" />
 
                                         <TextView
@@ -215,10 +215,10 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
                                             android:layout_gravity="center"
-                                            android:layout_margin="5dp"
+                                            android:layout_marginTop="15dp"
                                             android:background="@drawable/warehouse" />
 
                                         <TextView
@@ -247,11 +247,13 @@
                                         android:orientation="vertical">
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
                                             android:layout_gravity="center"
-                                            android:layout_margin="5dp"
+                                            android:layout_marginTop="15dp"
                                             android:background="@drawable/barchart" />
+
+                                        />
 
                                         <TextView
                                             android:layout_width="match_parent"
@@ -279,10 +281,10 @@
                                         android:transitionName="a">
 
                                         <ImageView
-                                            android:layout_width="70dp"
-                                            android:layout_height="70dp"
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
                                             android:layout_gravity="center"
-                                            android:layout_margin="5dp"
+                                            android:layout_marginTop="15dp"
                                             android:background="@drawable/employee" />
 
                                         <TextView
@@ -541,9 +543,9 @@
                     app:fabCradleVerticalOffset="10dp">
 
                     <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:background="@drawable/transparent_background"
                         app:menu="@menu/bottombavigation" />
                 </com.google.android.material.bottomappbar.BottomAppBar>

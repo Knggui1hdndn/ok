@@ -1,7 +1,10 @@
 package laptrinhandroid.fpoly.dnnhm3.Activity;
 
+import android.Manifest;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,23 +26,28 @@ public class BaoCaoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bao_cao);
-        anhXa();
-        setToolbar();
 
-        BaocaoAdapterViewager adapterViewager = new BaocaoAdapterViewager(this);
-        viewPager.setAdapter(adapterViewager);
+if(Build.VERSION.SDK_INT>=26){
+    anhXa();
+    setToolbar();
+    BaocaoAdapterViewager adapterViewager = new BaocaoAdapterViewager(this);
+    viewPager.setAdapter(adapterViewager);
 
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position){
-                    case 0: tab.setText("Thu chi"); break;
-                    case 1: tab.setText("Lãi lỗ"); break;
-                    case 2: tab.setText("Cửa hàng"); break;
-                    case 3: tab.setText("Kho hàng"); break;
-                }
+    new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+        @Override
+        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+            switch (position){
+                case 0: tab.setText("Thu chi"); break;
+                case 1: tab.setText("Lãi lỗ"); break;
+                case 2: tab.setText("Cửa hàng"); break;
+                case 3: tab.setText("Kho hàng"); break;
             }
-        }).attach();
+        }
+    }).attach();
+}else{
+    findViewById(R.id.mLinearLayout).setVisibility(View.GONE);
+}
+
 
     }
 

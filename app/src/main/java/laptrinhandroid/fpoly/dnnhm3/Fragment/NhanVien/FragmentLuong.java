@@ -90,7 +90,13 @@ public class FragmentLuong extends Fragment {
                                         try {
                                             if (GiaoDienChinh.bangLuong.updateBangLuong(bangLuong1)) {
                                                 Toast.makeText(getContext(), "Update thành công", Toast.LENGTH_SHORT).show();
-                                                txtLuongCb.setText(Float.parseFloat(inputLayout.getEditText().getText().toString()) + " ₫");
+                                                txtLuongCb.setText( inputLayout.getEditText().getText().toString()  + " ₫");
+                                                bangLuong.get(i).setLuongCB(Float.parseFloat(inputLayout.getEditText().getText().toString()));
+                                                arrayAdapter.clear();
+                                                arrayAdapter.addAll(list);
+                                                spinner.setAdapter(arrayAdapter);
+                                                spinner.setSelection(i);
+
                                                 dialog.cancel();
                                             } else {
                                                 Toast.makeText(getContext(), "Update thất bại", Toast.LENGTH_SHORT).show();

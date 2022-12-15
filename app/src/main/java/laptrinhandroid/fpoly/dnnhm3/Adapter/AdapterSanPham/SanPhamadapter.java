@@ -64,21 +64,12 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
             try {
                 holder.img_SP.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sanPham.getAnh()));
             }catch (Exception e){
+
             }
             holder.tv_tenSP.setText(sanPham.getTenSP()+"");
-            holder.tv_maSP.setText("SP"+sanPham.getMaSP());
-            holder.cv_sanpham.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    opendialog(holder.getAdapterPosition());
-                }
-            });
-            holder.img_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogDelete(sanPham);
-                }
-            });
+            holder.tv_maSP.setText(sanPham.getGiaBan()+ " đ"+  "\n"+"SP"+sanPham.getMaSP());
+            holder.cv_sanpham.setOnClickListener(v -> opendialog(holder.getAdapterPosition()));
+            holder.img_delete.setOnClickListener(v -> dialogDelete(sanPham));
         }
     }
 

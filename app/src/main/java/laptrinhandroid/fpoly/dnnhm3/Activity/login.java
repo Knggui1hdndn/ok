@@ -96,8 +96,10 @@ Dialog dialog=new Dialog(this);
                                                     e.printStackTrace();
                                                 }
                                             } else {
-                                                Toast.makeText(login.this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
-                                            }
+                                                inputEmail.setError("Sai mật khẩu hoặc email");
+                                                inputPassword.setError("Sai mật khẩu hoặc email");
+                                                dialog.cancel();
+                                             }
                                         }
                                     }
                                 }
@@ -112,6 +114,12 @@ Dialog dialog=new Dialog(this);
         });
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+    }
 //    public class CustomProgress extends Dialog {
 //
 //        public CustomProgress(Context context) {

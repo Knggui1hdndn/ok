@@ -35,7 +35,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -66,7 +68,8 @@ import laptrinhandroid.fpoly.dnnhm3.R;
 import laptrinhandroid.fpoly.dnnhm3.notification.FcmNotificationsSender;
 import me.relex.circleindicator.CircleIndicator3;
 
-public class GiaoDienChinh extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class GiaoDienChinh extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
     NavigationView navigationView;
     Toolbar toolbar;
     AdapterPagerSlideImg adapterPager;
@@ -100,6 +103,7 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
     LinearLayout nhanVien, donHang, baoCao, sanPham, qlKho, cuaHang;
     LinearLayout a, c;
     ImageView imageView;
+    BottomNavigationView bottomNavigationView;
 
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
@@ -107,6 +111,15 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giao_dien_chinh);
         initview();
+        bottomNavigationView = findViewById(R.id.bottom);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.person) {
+                Intent intent1 = new Intent(GiaoDienChinh.this, BaoCaoActivity.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(GiaoDienChinh.this, nhanVien, "a");
+                startActivity(intent1, options.toBundle());
+            }
+            return true;
+        });
         View view = navigationView.getHeaderView(0);
         TextView view1 = view.findViewById(R.id.a);
         TextView view2 = view.findViewById(R.id.b);
@@ -116,11 +129,10 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
 
         try {
             nv = nhanVien1.getListNhanVien(intent.getIntExtra("NV", 0));
-
             nhanVien.setOnClickListener(v -> {
                 if (nv != null) {
                     Intent intent1 = new Intent(this, MainActivity.class);
-                    intent1.putExtra("NV",nv.getMaNv());
+                    intent1.putExtra("NV", nv.getMaNv());
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
                     startActivity(intent1, options.toBundle());
                 } else {
@@ -129,12 +141,10 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                     startActivity(intent1, options.toBundle());
                 }
             });
-             button.setOnClickListener(view5 -> {
-
-                    Intent intent1 = new Intent(this, XepLoai.class);
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
-                    startActivity(intent1, options.toBundle());
-
+            button.setOnClickListener(view5 -> {
+                Intent intent1 = new Intent(this, XepLoai.class);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, nhanVien, "a");
+                startActivity(intent1, options.toBundle());
             });
             navigationView.setNavigationItemSelectedListener(this);
             if (nv != null) {
@@ -179,21 +189,17 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                         startActivity(intent);
                     }
                 });
-
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             Log.d("sssssc", "onCreate: " + e.getMessage() + nv);
         }
         setAdaperViewPager();
         //Chạy chữ
-
         //runLetters();
-
         donHang.setOnClickListener(v -> {
             Intent intent1 = new Intent(this, MainActivityhoadon.class);
-            intent1.putExtra("ch",1);
+            intent1.putExtra("ch", 1);
             if (nv != null) {
                 intent1.putExtra("maNV", nv.getMaNv());
             } else {
@@ -307,7 +313,7 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                             if (daoChamCong.updateChamCong(chamCong)) {
                                 hideView();
                                 txtMessage.setText("Đang chờ xác nhận");
-                                String tokenAdmin=nhanVien1.getTokenAdmin();
+                                String tokenAdmin = nhanVien1.getTokenAdmin();
                                 new FcmNotificationsSender(tokenAdmin, "Nhân viên " + nv.getHoTen() + " yêu cầu xác nhận công", "Nhấn vào đây để đi đến xác nhận", GiaoDienChinh.this).SendNotifications();
                                 BangLuong bangLuong1 = bangLuong.getBangLuong(nv.getMaNv());
                                 switch (getTop()) {
@@ -344,7 +350,7 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-
+        bottomNavigationView.setSelectedItemId(R.id.Search);
         try {
             if (nv != null) {
                 soNoti.setText(thongBaoNVDAO.getCountThongBaoNhanVien(nv.getMaNv()) + "");
@@ -493,62 +499,6 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
-    private void runLetters() {
-        actionbar.setTitle("Quản lí cửa hàng");
-        final String[] s = ("Quản lí cửa hàng").split("");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int i4[] = {0};
-                int i3[] = {1};
-                int[] i = {0};
-                StringBuilder stringBuilder = new StringBuilder();
-                int i1[] = {0};
-                while (true) {
-                    int finalI = i[0];
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (i1[0] == 0) {
-                                stringBuilder.append(s[finalI]);
-                                i[0]++;
-                                if (i[0] == s.length) {
-                                    i[0] = s.length - 1;
-                                    i1[0] = 3;
-                                    if (i3[0] == 2) {
-                                        i4[0]++;
-                                    }
-                                }
-                            } else {
-                                if (i[0] >= 0 && i[0] < stringBuilder.length()) {
-                                    stringBuilder.deleteCharAt(i[0]);
-                                }
-                                i[0]--;
-                                if (i[0] < 0) {
-                                    i[0] = 0;
-                                    i1[0] = 0;
-                                    i3[0] = 2;
-                                }
-                            }
-                            if (i3[0] != 1) {
-                                actionbar.setTitle(stringBuilder.toString());
-                            }
-                        }
-                    });
-                    try {
-                        Thread.sleep(200);
-                        if (i4[0] == 1) {
-                            Thread.sleep(5000);
-                            i4[0] = 0;
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Log.d("sssss", "run: " + e.toString());
-                    }
-                }
-            }
-        }).start();
-    }
 
     private void setAdaperViewPager() {
         viewPager2.setOffscreenPageLimit(1);//Dat so luong trang giu lai o hai ben
@@ -591,7 +541,7 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         switch (item.getItemId()) {
             case R.id.donHang:
                 Intent i1ntent1 = new Intent(this, MainActivityhoadon.class);
-                i1ntent1.putExtra("ch",1);
+                i1ntent1.putExtra("ch", 1);
                 if (nv != null) {
                     i1ntent1.putExtra("maNV", nv.getMaNv());
                 } else {
@@ -634,7 +584,7 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
                 }
                 break;
             case R.id.doiMK:
-                    startActivity(new Intent(GiaoDienChinh.this, DoiMatKhauActivity.class));
+                startActivity(new Intent(GiaoDienChinh.this, DoiMatKhauActivity.class));
                 break;
             case R.id.logout:
                 Intent intent15 = new Intent(this, login.class);
@@ -645,4 +595,5 @@ public class GiaoDienChinh extends AppCompatActivity implements NavigationView.O
         drawerLayout.closeDrawer(Gravity.LEFT);
         return true;
     }
+
 }

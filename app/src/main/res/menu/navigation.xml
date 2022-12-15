@@ -15,7 +15,7 @@
                 android:title="Quản lí kho"
                 android:id="@+id/qlKho"/>
             <item
-                android:icon="@drawable/barchart"
+                android:icon="@drawable/analytics"
                 android:title="Báo cáo thống kê"
                 android:id="@+id/thongKe"/>
             <item

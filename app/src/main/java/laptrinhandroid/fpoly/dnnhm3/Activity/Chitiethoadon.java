@@ -1,14 +1,21 @@
 package laptrinhandroid.fpoly.dnnhm3.Activity;
 
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,9 +65,9 @@ public class Chitiethoadon extends AppCompatActivity {
     Adapterchitiet adapterchitiet;
     RecyclerView recyclerView;
     //list
-    List<HoaDonBan> hoaDonBanList ;
+    List<HoaDonBan> hoaDonBanList;
     List<KhachHang> listkh;
-    List<NhanVien> listnv ;
+    List<NhanVien> listnv;
     List<SanPham> listsp;
 
     //dao
@@ -111,15 +118,15 @@ public class Chitiethoadon extends AppCompatActivity {
             e.printStackTrace();
         }
         spinernhanvien = new Spinernhanvien(getApplicationContext(), listnv);
-         if(getIntent().getIntExtra("maNV",0)==28){
+        if (getIntent().getIntExtra("maNV", 0) == 28) {
             listnv.clear();
-            NhanVien nhanVien=new NhanVien();
+            NhanVien nhanVien = new NhanVien();
             nhanVien.setHoTen("admin");
             nhanVien.setMaNv(28);
             listnv.add(nhanVien);
         }
         spinner1.setAdapter(spinernhanvien);
-        spinner1.setSelection(listnv.size()-1);
+        spinner1.setSelection(listnv.size() - 1);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -144,7 +151,7 @@ public class Chitiethoadon extends AppCompatActivity {
         }
         spinerkhachhang = new Spinerkhachhang(getApplicationContext(), listkh);
         spinner2.setAdapter(spinerkhachhang);
-        spinner2.setSelection(listkh.size()-1);
+        spinner2.setSelection(listkh.size() - 1);
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -158,9 +165,6 @@ public class Chitiethoadon extends AppCompatActivity {
         });
 
 
-
-
-
         sanPhams = (List<SanPham>) getIntent().getSerializableExtra("key");
         adapterchitiet = new Adapterchitiet(getApplicationContext(), sanPhams);
         recyclerView.setAdapter(adapterchitiet);
@@ -170,7 +174,7 @@ public class Chitiethoadon extends AppCompatActivity {
         }
         tongsanpham.setText(f + "");
         String tongtien = l + "";
-        tontien.setText(tongtien+" đ");
+        tontien.setText(tongtien + " đ");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -187,20 +191,42 @@ public class Chitiethoadon extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                        try {
-                            if(addHoaDon()==1){
-                                Toast.makeText(Chitiethoadon.this, "Tạo đơn hàng thành công", Toast.LENGTH_SHORT).show();
+                try {
+                    if (addHoaDon() == 1) {
+                        Dialog dialog = new Dialog(Chitiethoadon.this);
+                        dialog.getWindow().setGravity(Gravity.CENTER);
+                        dialog.setCancelable(false);
+                        dialog.setContentView(R.layout.item_progress_sussec);
+                        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                        dialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.cancel();
                                 finish();
-                            }else {
-                                Toast.makeText(Chitiethoadon.this, "Tạo đơn hàng không thành công", Toast.LENGTH_SHORT).show();
-
                             }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            Log.d("sssssssswwwc", "onClick: "+e.getMessage());
-                        }
-                    }
+                        }, 2000);
+                    } else {
+                        Dialog dialog = new Dialog(Chitiethoadon.this);
+                        dialog.getWindow().setGravity(Gravity.CENTER);
+                        dialog.setCancelable(false);
+                        dialog.setContentView(R.layout.item_progress_can);
+                        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                        dialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.cancel();
+                                finish();
+                            }
+                        }, 2000);
 
+
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
 
 
         });
@@ -214,10 +240,10 @@ public class Chitiethoadon extends AppCompatActivity {
         hoaDonBan.setMaNV(manv);
         hoaDonBan.setTongTien(l);
         hoaDonBan.setNgayBan(new java.sql.Date(System.currentTimeMillis()));
-        int i=0;
+        int i = 0;
         if (new DAOhoadon().Insert(hoaDonBan)) {
-             List<HoaDonBan> maHoaDon = new DAOhoadon().getListHoadonban();
-            int maHD = maHoaDon.get(maHoaDon.size()-1).getMaHDBan();
+            List<HoaDonBan> maHoaDon = new DAOhoadon().getListHoadonban();
+            int maHD = maHoaDon.get(maHoaDon.size() - 1).getMaHDBan();
             Daochitiethoadon daoChiTietHoaDonNhap = new Daochitiethoadon();
             for (SanPham sanPham : sanPhams) {
                 if (daoChiTietHoaDonNhap.Insertchitiethoadon(new ChiTietHoaDonban(maHD, sanPham.getMaSP(),
@@ -225,8 +251,8 @@ public class Chitiethoadon extends AppCompatActivity {
                         sanPham.getGiaBan() * sanPham.getSoLuong()))) {
                     sanPham.setSoLuong(daoSanPham.getIdSP(String.valueOf(sanPham.getMaSP())).getSoLuong() - sanPham.getSoLuong());
                     sanPham.setSoLuongDaBan(daoSanPham.getIdSP(String.valueOf(sanPham.getMaSP())).getSoLuongDaBan() + sanPham.getSoLuong());
-                    if(daoSanPham.updateSanPham(sanPham)){
-                        i=1;
+                    if (daoSanPham.updateSanPham(sanPham)) {
+                        i = 1;
                     }
                 }
             }
@@ -268,19 +294,20 @@ public class Chitiethoadon extends AppCompatActivity {
             public void onClick(View view) {
                 int check = 1;
                 if (txtname.getText().toString().isEmpty()) {
-                    Toast.makeText(Chitiethoadon.this, "Họ tên không được để trống", Toast.LENGTH_SHORT).show();
-                } else if (txtdiachi.getText().toString().isEmpty()) {
-                    Toast.makeText(Chitiethoadon.this, " địa chỉ không được để trống", Toast.LENGTH_SHORT).show();
-                } else if (txtSdt.getText().toString().isEmpty()) {
-                    Toast.makeText(Chitiethoadon.this, "Sđt không được để trống", Toast.LENGTH_SHORT).show();
-                } else if (check > 0) {
+                    txtname.setError("Họ tên không được để trống");
+                 } else if (txtdiachi.getText().toString().isEmpty()) {
+                    txtdiachi.setError("Địa chỉ không được để trống");
+
+                 } else if (txtSdt.getText().toString().isEmpty()) {
+                    txtSdt.setError("Sđt không được để trống");
+
+                 } else if (check > 0) {
                     KhachHang khachHang = new KhachHang();
                     khachHang.setHoTen(txtname.getText().toString());
                     khachHang.setDiaChi(txtdiachi.getText().toString());
                     khachHang.setSoDT(txtSdt.getText().toString());
                     try {
                         if (daokhachhang.addKhachhang(khachHang)) {
-
                             Toast.makeText(Chitiethoadon.this, "thanh cong", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(Chitiethoadon.this, "khong thanh cong" +

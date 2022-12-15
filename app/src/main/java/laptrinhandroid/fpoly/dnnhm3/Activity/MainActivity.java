@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setToolBar();
         Intent intent = getIntent();
         nhanVien = intent.getIntExtra("NV", 0);
-         viewPager2.setAdapter(new AdapterPagerNhanVien(this, nhanVien));
+        viewPager2.setAdapter(new AdapterPagerNhanVien(this, nhanVien));
         new TabLayoutMediator(layout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_nhan_vien, menu);
+             getMenuInflater().inflate(R.menu.toolbar_nhan_vien, menu);
+
         return true;
     }
 
@@ -129,49 +130,49 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     thang = String.valueOf(tháng);
                 }
-                List<BangLuong> bangLuong = (List<BangLuong>) GiaoDienChinh.bangLuong.getListBangLuong(nhanVien,calendar1.getYear() + "-" + thang);
+                List<BangLuong> bangLuong = (List<BangLuong>) GiaoDienChinh.bangLuong.getListBangLuong(nhanVien, calendar1.getYear() + "-" + thang);
                 int[] tien = new int[1];
-                tien[0]=0;
-                double hanMucc=0;
-                if(bangLuong.size()>0){
-                   for (ChamCong chamCong : GiaoDienChinh.daoChamCong.getListChamCong(nhanVien, calendar1.getYear() + "-" + thang)) {
-                       if (chamCong.getXacNhanChamCong() == 1) {
-                           soH += chamCong.getGioKetThuc().getTime() - chamCong.getGioBatDau().getTime();
-                           calendar.setTime(chamCong.getNgay());
-                           if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-                               hChuNhat += (float) (chamCong.getGioKetThuc().getTime() - chamCong.getGioBatDau().getTime()) / (1000 * 60 * 60);
-                           }
-                       }
-                   }
+                tien[0] = 0;
+                double hanMucc = 0;
+                if (bangLuong.size() > 0) {
+                    for (ChamCong chamCong : GiaoDienChinh.daoChamCong.getListChamCong(nhanVien, calendar1.getYear() + "-" + thang)) {
+                        if (chamCong.getXacNhanChamCong() == 1) {
+                            soH += chamCong.getGioKetThuc().getTime() - chamCong.getGioBatDau().getTime();
+                            calendar.setTime(chamCong.getNgay());
+                            if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                                hChuNhat += (float) (chamCong.getGioKetThuc().getTime() - chamCong.getGioBatDau().getTime()) / (1000 * 60 * 60);
+                            }
+                        }
+                    }
 
-                   float h = (float) soH / (1000 * 60 * 60);
-                   float v = bangLuong.get(bangLuong.size()-1).getLuongCB();
-                   float congMotNgay = v / 26;
-                   float congMotGio = congMotNgay / 8;
-                   float tongLuong = ((h - hChuNhat) + (hChuNhat * 2)) * congMotGio;
-                     hanMucc = ((tongLuong - bangLuong.get(bangLuong.size()-1).getUngLuong() + bangLuong.get(bangLuong.size()-1).getThuong()) * 70) / 100;
-                   hanMuc.setText((int) hanMucc + " ₫");
-                   snackbar.setProgress(100);
-                   soTienDaUng.setText("Đã ứng :" + bangLuong.get(bangLuong.size()-1).getUngLuong() + " đ");
+                    float h = (float) soH / (1000 * 60 * 60);
+                    float v = bangLuong.get(bangLuong.size() - 1).getLuongCB();
+                    float congMotNgay = v / 26;
+                    float congMotGio = congMotNgay / 8;
+                    float tongLuong = ((h - hChuNhat) + (hChuNhat * 2)) * congMotGio;
+                    hanMucc = ((tongLuong - bangLuong.get(bangLuong.size() - 1).getUngLuong() + bangLuong.get(bangLuong.size() - 1).getThuong()) * 70) / 100;
+                    hanMuc.setText((int) hanMucc + " ₫");
+                    snackbar.setProgress(100);
+                    soTienDaUng.setText("Đã ứng :" + bangLuong.get(bangLuong.size() - 1).getUngLuong() + " đ");
                     double finalHanMucc = hanMucc;
                     snackbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                       @Override
-                       public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                           soTien.setText(((int) finalHanMucc * i) / 100 + " đ");
-                           tien[0] = ((int) finalHanMucc * i) / 100;
-                       }
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                            soTien.setText(((int) finalHanMucc * i) / 100 + " đ");
+                            tien[0] = ((int) finalHanMucc * i) / 100;
+                        }
 
-                       @Override
-                       public void onStartTrackingTouch(SeekBar seekBar) {
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
 
-                       }
+                        }
 
-                       @Override
-                       public void onStopTrackingTouch(SeekBar seekBar) {
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
 
-                       }
-                   });
-               }
+                        }
+                    });
+                }
                 double finalHanMucc1 = hanMucc;
                 ung.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 BangLuong bangLuong1 = GiaoDienChinh.bangLuong.getBangLuong(nhanVien);
                                 bangLuong1.setUngLuong(tien[0] + bangLuong1.getUngLuong());
-                                GiaoDienChinh.bangLuong.updateBangLuong(bangLuong1 );
+                                GiaoDienChinh.bangLuong.updateBangLuong(bangLuong1);
 
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -195,10 +196,11 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (SQLException e) {
                 e.printStackTrace();
-                Log.d("sddddđ", "onOptionsItemSelected: "+e.getMessage());            }
+                Log.d("sddddđ", "onOptionsItemSelected: " + e.getMessage());
+            }
             dialog.show();
         } else {
-
+            startActivity(new Intent(this, XepLoai.class));
         }
         return true;
     }

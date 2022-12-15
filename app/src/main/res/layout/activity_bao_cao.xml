@@ -24,18 +24,38 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/baoCao_tablayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-        app:tabSelectedTextColor="@color/green"
-        app:tabTextColor="@color/gray"
-        />
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phiên bản android không hỗ trợ"/>
+        <LinearLayout
+            android:id="@+id/mLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/baoCao_tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabSelectedTextColor="@color/green"
+                app:tabTextColor="@color/gray"
+                />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/baocao_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/baocao_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

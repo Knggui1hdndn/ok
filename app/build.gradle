@@ -31,7 +31,8 @@ android {
 dependencies {
     implementation 'com.google.firebase:firebase-messaging-directboot:23.1.0'//gui tin nhan che o nen
     implementation 'com.google.firebase:firebase-messaging:23.1.0'
-
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "androidx.room:room-runtime:2.4.3"
     annotationProcessor "androidx.room:room-compiler:2.4.3"
     implementation 'me.relex:circleindicator:2.1.6'

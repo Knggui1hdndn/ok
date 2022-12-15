@@ -115,8 +115,10 @@ public class ListChamCongBangLuong extends AppCompatActivity implements sendData
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu1, menu);
-        menu.getItem(0).setTitle("Lưu");
+       if(getIntent().getIntExtra("BL",0)==0){
+           getMenuInflater().inflate(R.menu.menu1, menu);
+           menu.getItem(0).setTitle("Lưu");
+       }
         return true;
     }
 

@@ -3,9 +3,12 @@ package laptrinhandroid.fpoly.dnnhm3.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,16 +81,39 @@ int maNV;
             @Override
             public void onClick(View view) {
                 try {
-                    if (addHoaDonNhap() > 0) {
-                        Toast.makeText(ChiTietHoaDonNhapActivity.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-                        finish();
+                    if (addHoaDonNhap() >0) {
+                        Dialog dialog = new Dialog(ChiTietHoaDonNhapActivity.this);
+                        dialog.getWindow().setGravity(Gravity.CENTER);
+                        dialog.setCancelable(false);
+                        dialog.setContentView(R.layout.item_progress_sussec);
+                        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                        dialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.cancel();
+                                finish();
+                            }
+                        }, 2000);
                     } else {
-                        Toast.makeText(ChiTietHoaDonNhapActivity.this, "Đặt hàng không thành công", Toast.LENGTH_SHORT).show();
+                        Dialog dialog = new Dialog(ChiTietHoaDonNhapActivity.this);
+                        dialog.getWindow().setGravity(Gravity.CENTER);
+                        dialog.setCancelable(false);
+                        dialog.setContentView(R.layout.item_progress_can);
+                        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                        dialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.cancel();
+                                finish();
+                            }
+                        }, 2000);
+
 
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    Log.d("ffffffghhh", "onClick: "+e.getMessage());
                 }
             }
         });
@@ -160,17 +186,33 @@ int maNV;
                 nhaCungCapd.setDiaChi(txtdiachi.getText().toString());
                 nhaCungCapd.setSoDT(txtSdt.getText().toString());
                 try {
-                    if (daoNhaCungCap.addNhaCungCap(nhaCungCapd)) {
-                        Log.e("sssss", "onClick: ");
-                        Toast.makeText(ChiTietHoaDonNhapActivity.this, "thanh cong", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                        listNcc.clear();
-                        daoNhaCungCap = new DaoNhaCungCap();
-                        listNcc.addAll(daoNhaCungCap.getAllNhaCung());
-                    } else {
-                        Toast.makeText(ChiTietHoaDonNhapActivity.this, "khong thanh cong" +
-                                "", Toast.LENGTH_SHORT).show();
+                    int i=0;
+                    if (txtname.getText().toString().isEmpty()) {
+                        txtname.setError("Họ tên không được để trống");
+                        i++;
+                    } else if (txtdiachi.getText().toString().isEmpty()) {
+                        txtdiachi.setError("Địa chỉ không được để trống");
+                        i++;
+
+                    } else if (txtSdt.getText().toString().isEmpty()) {
+                        txtSdt.setError("Sđt không được để trống");
+                        i++;
+
                     }
+                    if(i==0){
+                        if (daoNhaCungCap.addNhaCungCap(nhaCungCapd)) {
+                            Log.e("sssss", "onClick: ");
+                            Toast.makeText(ChiTietHoaDonNhapActivity.this, "thanh cong", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            listNcc.clear();
+                            daoNhaCungCap = new DaoNhaCungCap();
+                            listNcc.addAll(daoNhaCungCap.getAllNhaCung());
+                        } else {
+                            Toast.makeText(ChiTietHoaDonNhapActivity.this, "khong thanh cong" +
+                                    "", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

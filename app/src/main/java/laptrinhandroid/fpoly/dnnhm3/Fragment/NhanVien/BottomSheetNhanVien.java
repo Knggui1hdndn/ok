@@ -62,6 +62,8 @@ public class BottomSheetNhanVien extends BottomSheetDialogFragment {
                 if(GiaoDienChinh.nhanVien1.deleteNhanVien(nhanVien)){
                     Toast.makeText(getContext(), "Đã xóa nhân viên", Toast.LENGTH_SHORT).show();
                    ((QuanLiNhanVien) getActivity()).notifiDataChange(getArguments().getInt("i"));
+                    dismiss();
+
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
