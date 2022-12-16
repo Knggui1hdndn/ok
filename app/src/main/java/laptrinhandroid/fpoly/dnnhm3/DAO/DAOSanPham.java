@@ -272,12 +272,20 @@ public class DAOSanPham {
 
 
     public boolean updateSanPham(SanPham sanPham)throws SQLException {
+        Log.d("ddddd", "onBindViewHolder: "+sanPham.getLoaiSP());
+
         String sql = "UPDATE SanPham  SET " + "loaiSP = ?," + " tenSP =?," + "giaNhap=?" +
                 ",giaBan=?" + ",anh=?" + ",soLuongDaBan=?" + ",soLuong=?" + ",ghiChu=?" + " WHERE maSP='"+sanPham.getMaSP()+"';";
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = objConn.prepareStatement(sql);
-            preparedStatement.setInt(1, sanPham.getLoaiSP());
+if(  sanPham.getLoaiSP()==0){
+    preparedStatement.setObject(1, null);
+
+}else{
+    preparedStatement.setInt(1, sanPham.getLoaiSP());
+
+}
             preparedStatement.setString(2, sanPham.getTenSP());
             preparedStatement.setFloat(3, sanPham.getGiaNhap());
             preparedStatement.setFloat(4, sanPham.getGiaBan());

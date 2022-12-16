@@ -32,38 +32,46 @@ public class TabListProduct_QLKho_Fragment extends Fragment {
     SanPhamKhoAdapter adapter;
     int giatritongSP = 0, soluongton = 0;
 
+    TextView tv_tongSP, tv_giatriton, tv_soLuongton;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rcySP = view.findViewById(R.id.recyclerview_lsProduct);
          rcySP.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        TextView tv_tongSP, tv_giatriton, tv_soLuongton;
         tv_tongSP = view.findViewById(R.id.txt_tongSPton);
         tv_giatriton = view.findViewById(R.id.tv_giatriton);
         tv_soLuongton = view.findViewById(R.id.tv_tongSoLuong);
+
+        adapter = new SanPhamKhoAdapter(mContext, arrSP);
+        rcySP.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 daoSanPham = new DAOSanPham();
                 try {
-                    arrSP = (ArrayList<SanPham>) daoSanPham.getListSanPham();
+                    giatritongSP=0;
+                    soluongton=0;
+                     arrSP = (ArrayList<SanPham>) daoSanPham.getListSanPham();
+                    adapter.setData(arrSP);
                     for (SanPham sanPham : arrSP) {
                         giatritongSP += (sanPham.getSoLuong() * sanPham.getGiaNhap());
                         soluongton += sanPham.getSoLuong();
                     }
-
+                    tv_tongSP.setText(arrSP.size() + " sản phẩm");
+                    tv_giatriton.setText(giatritongSP + " đ");
+                    tv_soLuongton.setText(soluongton + "");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         });
-        adapter = new SanPhamKhoAdapter(mContext, arrSP);
-        rcySP.setAdapter(adapter);
-        tv_tongSP.setText(arrSP.size() + " sản phẩm");
-        tv_giatriton.setText(giatritongSP + " đ");
-        tv_soLuongton.setText(soluongton + "");
-        Log.e("ListSuze", arrSP.size() + "");
-        Log.e("giatritong", giatritongSP + "");
+
 
 
     }

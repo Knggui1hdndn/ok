@@ -33,6 +33,7 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
     Context mContext;
     View viewDialogAddPhieuMuon;
     ArrayList<HoaDonNhapKho> arrHDN = new ArrayList<>();
+    ArrayList<HoaDonNhapKho> arrHDN1 = new ArrayList<>();
     RecyclerView rcyPm;
     DAOHoaDonNhap daoHoaDonNhap;
     HoaDonNhapAdapter adapter;
@@ -59,7 +60,8 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
         rcyPm = view.findViewById(R.id.recyclerview_lsBill);
         rcyPm.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         maNV = getArguments().getInt("maNV");
-
+        adapter = new HoaDonNhapAdapter((QuanLyKho) mContext, arrHDN);
+        rcyPm.setAdapter(adapter);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,28 +71,27 @@ public class TabListBill_QLKho_Fragment extends Fragment implements InforSearch 
             }
         });
 
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                daoHoaDonNhap = new DAOHoaDonNhap();
-                try {
-                    arrHDN = (ArrayList<HoaDonNhapKho>) daoHoaDonNhap.getListHoaDonNhap();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    Log.d("loiii", "onViewCreated: " + e.getMessage());
-                }
-            }
-        });
-        adapter = new HoaDonNhapAdapter((QuanLyKho) mContext, arrHDN);
-        rcyPm.setAdapter(adapter);
-
-        Log.e("ListSuze", arrHDN.size() + "");
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                daoHoaDonNhap = new DAOHoaDonNhap();
+                try {
+                    arrHDN = (ArrayList<HoaDonNhapKho>) daoHoaDonNhap.getListHoaDonNhap();
+                    adapter.setData(arrHDN);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Log.d("loiii", "onViewCreated: " + e.getMessage());
+                }
+            }
+        });
+
 
     }
 

@@ -20,14 +20,17 @@ import laptrinhandroid.fpoly.dnnhm3.R;
 public class SanPhamKhoAdapter extends RecyclerView.Adapter<SanPhamKhoAdapter.SanPhamKhoViewHolder> {
     Context context;
     ArrayList<SanPham> arrSP = new ArrayList<>();
-    DAOSanPham         daoSanPham = new DAOSanPham();
-    ;
+
     View viewAlert;
     LayoutInflater inflater;
 
     public SanPhamKhoAdapter(Context context,  ArrayList<SanPham> arrSP) {
         this.context = context;
         this.arrSP = arrSP;
+    }
+    public void setData( ArrayList<SanPham> arrSP) {
+             this.arrSP = arrSP;
+        notifyDataSetChanged();
     }
     @NonNull
     @Override

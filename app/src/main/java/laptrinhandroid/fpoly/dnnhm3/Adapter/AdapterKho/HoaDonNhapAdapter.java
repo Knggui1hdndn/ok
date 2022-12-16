@@ -39,6 +39,10 @@ public class HoaDonNhapAdapter extends RecyclerView.Adapter<HoaDonNhapAdapter.Ho
         this.activity = activity;
         this.arrHDN = arrHDN;
     }
+    public void setData( ArrayList<HoaDonNhapKho> arrHDN) {
+         this .arrHDN = arrHDN;
+         notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public HoaDonNhapViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

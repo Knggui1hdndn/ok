@@ -174,7 +174,9 @@ public class GiaoDienChinh extends AppCompatActivity implements
                     float h = (float) soH / (1000 * 60 * 60);
                     txtSoGioDaLam.setText(String.format("%.2g", h) + " giờ");
                     txtThuHangHienTai.setText("Top " + i);
-                    txtSoTienThuongHienTai.setText(bangLuong.getBangLuong(nv.getMaNv()).getThuong() + "  VND");
+                    BangLuong bangLuongss=bangLuong.getBangLuong(nv.getMaNv());
+                    float c=(bangLuongss!=null)? bangLuongss.getThuong() :0;
+                    txtSoTienThuongHienTai.setText(c+ " VND");
                 }
             } else {
                 view1.setText("Admin" + "");

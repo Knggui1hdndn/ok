@@ -60,6 +60,7 @@ public class SanPhamadapter extends RecyclerView.Adapter<SanPhamadapter.SanPhamV
     @Override
     public void onBindViewHolder(@NonNull SanPhamViewHolder holder, int position) {
          SanPham sanPham = arrSP.get(position);
+        Log.d("ddddd", "onBindViewHolder: "+sanPham.getLoaiSP());
         if(sanPham != null) {
             try {
                 holder.img_SP.setImageBitmap(ConvertImg.convertBaseStringToBitmap(sanPham.getAnh()));
