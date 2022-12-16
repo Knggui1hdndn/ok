@@ -1,5 +1,6 @@
 package laptrinhandroid.fpoly.dnnhm3.Fragment.NhanVien;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,6 +69,7 @@ public class FragmentLuong extends Fragment {
 
 
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @SuppressLint({"DefaultLocale", "SetTextI18n"})
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
                     float soH = 0f;
@@ -96,7 +98,6 @@ public class FragmentLuong extends Fragment {
                                                 arrayAdapter.addAll(list);
                                                 spinner.setAdapter(arrayAdapter);
                                                 spinner.setSelection(i);
-
                                                 dialog.cancel();
                                             } else {
                                                 Toast.makeText(getContext(), "Update thất bại", Toast.LENGTH_SHORT).show();
@@ -118,7 +119,6 @@ public class FragmentLuong extends Fragment {
                             if (chamCong.getXacNhanChamCong() == 1 && chamCong.getGioBatDau() != null && chamCong.getGioKetThuc() != null) {
                                 soH += chamCong.getGioKetThuc().getTime() - chamCong.getGioBatDau().getTime();
                                 calendar.setTime(chamCong.getNgay());
-
                                 soNgayThuong++;
                                 if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
                                     soChuNhat++;
@@ -131,13 +131,13 @@ public class FragmentLuong extends Fragment {
                         float congMotNgay = v / 26;
                         float congMotGio = congMotNgay / 8;
                         float tongLuong = ((h - hChuNhat) + (hChuNhat * 2)) * congMotGio;
-                        txtLuongCb.setText(v + " ₫");
-                        txtSoGio.setText(h + " giờ");
+                        txtLuongCb.setText(String.format("%.0f", v)  + " ₫");
+                        txtSoGio.setText(String.format("%.3f", h) + " giờ");
                         txtChuNhat.setText(soChuNhat + " ca");
                         txtNgayThuong.setText((soNgayThuong - soChuNhat) + " ca");
                         txtUngLuong.setText(bangLuong.get(i).getUngLuong() + " ₫");
-                        txtSoTienThuong.setText(bangLuong.get(i).getThuong() + " ₫");
-                        txtTong.setText((tongLuong - bangLuong.get(i).getUngLuong() + bangLuong.get(i).getThuong()) + " ₫");
+                        txtSoTienThuong.setText(String.format("%.3f", bangLuong.get(i).getThuong()) + " ₫");
+                        txtTong.setText(String.format("%.3f", (tongLuong - bangLuong.get(i).getUngLuong() + bangLuong.get(i).getThuong())) + " ₫");
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

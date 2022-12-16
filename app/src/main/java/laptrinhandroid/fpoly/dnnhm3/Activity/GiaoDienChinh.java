@@ -161,6 +161,7 @@ public class GiaoDienChinh extends AppCompatActivity implements
                         startActivity(intent);
                     }
                 });
+
                 List<ChamCong> chamCongs = daoChamCong.getListChamCong(1, FormatDay.calendarDay().getYear() + "-" + FormatDay.calendarDay().getMonth());
                 int i = getTop();
                 if (chamCongs != null) {

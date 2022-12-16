@@ -36,6 +36,7 @@ public class QuanLiNhanVien extends AppCompatActivity implements notifiDataChang
         setContentView(R.layout.activity_quan_li_nhan_vien);
         recyclerView = findViewById(R.id.rcy);
         action = findViewById(R.id.add);
+
         setToolBar();
         action.setOnClickListener(view -> {
             startActivity(new Intent(this, AddNhanVien.class));

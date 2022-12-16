@@ -71,7 +71,10 @@ public class DAOChamCong implements Serializable {
         if (objConn != null) {
             Statement statement = objConn.createStatement();// Tạo đối tượng Statement.
             String sql = " SELECT  ngay FROM  ChamCong where maNV='" + maNV + "' AND xacNhanChamCong='" + trangThai + "'";
-            // Thực thi câu lệnh SQL trả về đối tượng ResultSet. // Mọi kết quả trả về sẽ được lưu trong ResultSet
+            if(trangThai==2){{
+                sql = " SELECT  ngay FROM  ChamCong where maNV='" + maNV + "' AND (xacNhanChamCong='" + trangThai + "' or gioKetThuc IS  NULL)";
+            }}
+            // Thực thi câu lệnh SQL trả về đối tượng ResultSet. // Mọi kết quả trả về sẽ được gioKetThuclưu trong ResultSet
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 list.add(FormatDay.calendarDay(rs.getDate(1)));// Đọc dữ liệu từ ResultSet
@@ -123,7 +126,7 @@ public class DAOChamCong implements Serializable {
         if (objConn != null) {
             getList = new ArrayList<>();
             Statement statement = objConn.createStatement();// Tạo đối tượng Statement.
-            String sql = " SELECT  * FROM  ChamCong where maNV='" + maNV + "'";
+            String sql = " SELECT  * FROM  ChamCong where maNV='" + maNV + "' and gioKetThuc IS NOT NULL";
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 getList.add(new ChamCong(rs.getInt(1), rs.getInt(2), rs.getTime(3), rs.getTime(4), rs.getDate(5), rs.getInt(6)));
