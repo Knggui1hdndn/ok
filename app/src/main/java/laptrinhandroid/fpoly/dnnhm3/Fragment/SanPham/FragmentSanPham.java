@@ -19,13 +19,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -127,6 +132,8 @@ public class FragmentSanPham extends Fragment implements setImg, InforSearch {
         Spinner spn_loaiSP;
         Button btn_them, btn_huy, btnanh;
         ed_giaban = v.findViewById(R.id.ed_giaban);
+
+
         ed_tenSanPham = v.findViewById(R.id.ed_tensanpham);
         ed_giavon = v.findViewById(R.id.ed_giavon);
         spn_loaiSP = v.findViewById(R.id.spn_danhmuc);
@@ -150,36 +157,40 @@ public class FragmentSanPham extends Fragment implements setImg, InforSearch {
         spn_loaiSP.setAdapter(adapterLoaiSP);
 
         btn_them.setOnClickListener(v1 -> {
-            SanPham sanPham = new SanPham();
-            String LoaiSP = (String) spn_loaiSP.getSelectedItem();
-            String[] maloai = LoaiSP.split("\\.");
-            sanPham.setTenSP(ed_tenSanPham.getText().toString());
-            sanPham.setGiaNhap(Float.parseFloat(ed_giavon.getText().toString()));
-            sanPham.setGiaBan(Float.parseFloat(ed_giaban.getText().toString()));
-            sanPham.setLoaiSP(Integer.parseInt(maloai[0]));
-            BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
-            Bitmap bitmap = drawable.getBitmap();
-            sanPham.setAnh(ConvertImg.convertBitmapToBaseString(bitmap));
-            if (((SanPhamActivity) getContext()).addSP(sanPham)) {
-                Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
-                if (list.size() > 0) {
-                    sanPham.setMaSP(list.get(list.size() - 1).getMaSP() + 1);
-                } else {
-                    try {
-                        list = (ArrayList<SanPham>) daoSanPham.getListSanPham();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+            if (validate(ed_giaban) & validate(ed_tenSanPham) & validate(ed_giavon)) {
+                SanPham sanPham = new SanPham();
+                String LoaiSP = (String) spn_loaiSP.getSelectedItem();
+                String[] maloai = LoaiSP.split("\\.");
+                sanPham.setTenSP(ed_tenSanPham.getText().toString());
+                sanPham.setGiaNhap(Float.parseFloat(ed_giavon.getText().toString()));
+                sanPham.setGiaBan(Float.parseFloat(ed_giaban.getText().toString()));
+                sanPham.setLoaiSP(Integer.parseInt(maloai[0]));
+                BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                sanPham.setAnh(ConvertImg.convertBitmapToBaseString(bitmap));
+                if (((SanPhamActivity) getContext()).addSP(sanPham)) {
+                    Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+                    if (list.size() > 0) {
+                        sanPham.setMaSP(list.get(list.size() - 1).getMaSP() + 1);
+                    } else {
+                        try {
+                            list = (ArrayList<SanPham>) daoSanPham.getListSanPham();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
                     }
+                    list.add(sanPham);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), "!OK", Toast.LENGTH_SHORT).show();
 
                 }
-                list.add(sanPham);
+                alertDialog.cancel();
                 adapter.notifyDataSetChanged();
-            } else {
-                Toast.makeText(getActivity(), "!OK", Toast.LENGTH_SHORT).show();
-
             }
-            alertDialog.cancel();
-            adapter.notifyDataSetChanged();
+
+
         });
         btn_huy.setOnClickListener(v1 -> {
             alertDialog.cancel();
@@ -190,6 +201,15 @@ public class FragmentSanPham extends Fragment implements setImg, InforSearch {
                 show();
             }
         });
+    }
+
+    private boolean validate(EditText editText) {
+        if (TextUtils.isEmpty(editText.getText().toString())) {
+            editText.setError("Không bỏ trống");
+            return false;
+        }
+
+        return true;
     }
 
     public void onResume() {

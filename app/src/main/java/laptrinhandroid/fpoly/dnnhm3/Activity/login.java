@@ -45,6 +45,7 @@ public class login extends AppCompatActivity {
 Dialog dialog=new Dialog(this);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.setCancelable(false);
          dialog.setContentView(R.layout.item_progress);
 
 
@@ -72,6 +73,7 @@ Dialog dialog=new Dialog(this);
                                                     editor.putString("pass", inputPassword.getText().toString());
                                                     editor.commit();
                                                     startActivity(intent);
+                                                    finish();
                                                 }
                                             } catch (SQLException e) {
                                                 e.printStackTrace();
@@ -91,6 +93,8 @@ Dialog dialog=new Dialog(this);
                                                         editor.putString("pass", inputPassword.getText().toString());
                                                         editor.commit();
                                                         startActivity(intent);
+                                                        finish();
+
                                                     }
                                                 } catch (SQLException e) {
                                                     e.printStackTrace();

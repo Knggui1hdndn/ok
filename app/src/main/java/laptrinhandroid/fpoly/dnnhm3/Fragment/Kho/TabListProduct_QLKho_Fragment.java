@@ -20,10 +20,11 @@ import java.util.ArrayList;
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.SanPhamKhoAdapter;
 import laptrinhandroid.fpoly.dnnhm3.DAO.DAOSanPham;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.Entity.SanPham;
+import laptrinhandroid.fpoly.dnnhm3.Interface.InforSearch;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
 
-public class TabListProduct_QLKho_Fragment extends Fragment {
+public class TabListProduct_QLKho_Fragment extends Fragment  implements InforSearch {
     LayoutInflater inflater;
     Context mContext;
     ArrayList<SanPham> arrSP = new ArrayList<>();
@@ -82,5 +83,12 @@ public class TabListProduct_QLKho_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab_list_product__q_l_kho_, container, false);
         return view;
+    }
+
+    @Override
+    public void InforSearch(String s) {
+        if (adapter != null) {
+            adapter.getFilter().filter(s);
+        }
     }
 }

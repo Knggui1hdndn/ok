@@ -20,6 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import laptrinhandroid.fpoly.dnnhm3.Adapter.AdapterKho.ViewPagerAdapter;
 import laptrinhandroid.fpoly.dnnhm3.Fragment.Kho.TabListBill_QLKho_Fragment;
+import laptrinhandroid.fpoly.dnnhm3.Fragment.Kho.TabListProduct_QLKho_Fragment;
 import laptrinhandroid.fpoly.dnnhm3.Interface.InforSearch;
 import laptrinhandroid.fpoly.dnnhm3.R;
 
@@ -30,6 +31,7 @@ public class QuanLyKho extends AppCompatActivity {
     ViewPagerAdapter adapter;
     Toolbar toolbar_kho;
     TabListBill_QLKho_Fragment qlKho_fragment1 = new TabListBill_QLKho_Fragment();
+    TabListProduct_QLKho_Fragment tabListProductQlKhoFragment = new TabListProduct_QLKho_Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class QuanLyKho extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
-        adapter = new ViewPagerAdapter(QuanLyKho.this, qlKho_fragment1, getIntent().getIntExtra("maNV", 0));
+        adapter = new ViewPagerAdapter(QuanLyKho.this, tabListProductQlKhoFragment, qlKho_fragment1, getIntent().getIntExtra("maNV", 0));
         viewPager_kho.setAdapter(adapter);
 
         new TabLayoutMediator(tabLayout_kho, viewPager_kho, new TabLayoutMediator.TabConfigurationStrategy() {
@@ -80,6 +82,29 @@ public class QuanLyKho extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_searchkho).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Tìm kiếm sản phẩm");
+        tabLayout_kho.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    searchView.setQueryHint("Tìm kiếm sản phẩm");
+
+                } else {
+                    searchView.setQueryHint("Tìm kiếm hóa đơn");
+
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -88,7 +113,11 @@ public class QuanLyKho extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                qlKho_fragment1.InforSearch(s);
+                if (tabLayout_kho.getSelectedTabPosition() == 0) {
+                    tabListProductQlKhoFragment.InforSearch(s);
+                } else {
+                    qlKho_fragment1.InforSearch(s);
+                }
                 return true;
             }
         });

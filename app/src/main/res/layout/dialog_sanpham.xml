@@ -62,9 +62,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         >
         <LinearLayout
-            android:layout_width="170dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="10dp">
@@ -75,12 +76,13 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_giaban"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"
                 android:hint="0.000"/>
         </LinearLayout>
         <LinearLayout
             android:layout_margin="10dp"
-            android:layout_width="170dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
@@ -90,6 +92,8 @@
                 android:text="Giá vốn"/>
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_giavon"
+                android:inputType="number"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="0.000"/>
