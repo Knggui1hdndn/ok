@@ -292,16 +292,19 @@ public class Chitiethoadon extends AppCompatActivity {
         btnthem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int check = 1;
+                int i = 0;
                 if (txtname.getText().toString().isEmpty()) {
+                    i++;
                     txtname.setError("Họ tên không được để trống");
-                 } else if (txtdiachi.getText().toString().isEmpty()) {
+                 }  if (txtdiachi.getText().toString().isEmpty()) {
                     txtdiachi.setError("Địa chỉ không được để trống");
+                    i++;
 
-                 } else if (txtSdt.getText().toString().isEmpty()) {
+                 }   if (txtSdt.getText().toString().isEmpty()) {
                     txtSdt.setError("Sđt không được để trống");
-
-                 } else if (check > 0) {
+i++;
+                 }
+                if (i == 0) {
                     KhachHang khachHang = new KhachHang();
                     khachHang.setHoTen(txtname.getText().toString());
                     khachHang.setDiaChi(txtdiachi.getText().toString());
@@ -309,6 +312,10 @@ public class Chitiethoadon extends AppCompatActivity {
                     try {
                         if (daokhachhang.addKhachhang(khachHang)) {
                             Toast.makeText(Chitiethoadon.this, "thanh cong", Toast.LENGTH_SHORT).show();
+
+                            spinerkhachhang.add(khachHang);
+                            spinerkhachhang.notifyDataSetChanged();
+                            dialog.cancel();
                         } else {
                             Toast.makeText(Chitiethoadon.this, "khong thanh cong" +
                                     "", Toast.LENGTH_SHORT).show();

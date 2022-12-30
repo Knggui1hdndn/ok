@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-             getMenuInflater().inflate(R.menu.toolbar_nhan_vien, menu);
+        getMenuInflater().inflate(R.menu.toolbar_nhan_vien, menu);
 
         return true;
     }
@@ -177,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
                 ung.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(MainActivity.this, "Không đủ điều kiện để ứng lương", Toast.LENGTH_SHORT).show();
 
                         if (finalHanMucc1 < 200000) {
                             Toast.makeText(MainActivity.this, "Không đủ điều kiện để ứng lương", Toast.LENGTH_SHORT).show();
@@ -186,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                 BangLuong bangLuong1 = GiaoDienChinh.bangLuong.getBangLuong(nhanVien);
                                 bangLuong1.setUngLuong(tien[0] + bangLuong1.getUngLuong());
                                 GiaoDienChinh.bangLuong.updateBangLuong(bangLuong1);
-
+                                dialog.cancel();
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }

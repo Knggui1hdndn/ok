@@ -39,7 +39,7 @@ public class login extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btnLogin);
         EditText inputEmail = findViewById(R.id.inputEmail);
         EditText inputPassword = findViewById(R.id.inputPassword);
-        inputEmail.setText("haidzkkk.gamil.com");
+        inputEmail.setText("haidzkkk@gmail.com");
         inputPassword.setText("thanhhai");
 
 Dialog dialog=new Dialog(this);
