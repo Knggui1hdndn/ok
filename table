@@ -1,0 +1,122 @@
+
+create table NhanVien (
+maNv INT not null  IDENTITY(1,1) PRIMARY KEY,
+anh TEXT not null,
+hoTen TEXT not null,
+gioiTinh  TEXT not null,
+soDT TEXT not null,
+diaChi TEXT not null,
+anhPhoToCC TEXT not null,
+anhXNKcoTATS TEXT not null,
+email TEXT not null,
+passwords TEXT not null,
+token TEXT not null,
+ngayBD Date not null,
+ngaySinh Date not null,
+);
+ 
+ 
+create table ChamCong (
+maCong INT not null  IDENTITY(1,1) PRIMARY KEY,
+maNV int  FOREIGN KEY(maNV) REFERENCES NhanVien(maNv)  ON DELETE SET NULL,
+gioBatDau Time  ,
+gioKetThuc Time ,
+ngay Date not null,
+xacNhanChamCong int not null,
+);
+  
+ create table LoaiSP (
+maLoai int not null  IDENTITY(1,1) PRIMARY KEY,
+tenLoai TEXT 
+);
+ create table SanPham (
+maSP INT not null  IDENTITY(1,1) PRIMARY KEY,
+loaiSP INT  FOREIGN KEY(loaiSP) REFERENCES LoaiSP(maLoai)  ON DELETE SET NULL,
+tenSP TEXT not null,
+giaNhap float not null,
+giaBan float not null,
+anh TEXT not null, 
+soLuongDaBan int not null,
+soLuong int not null,
+ghiChu TEXT 
+);
+
+ 
+create table KhachHang (
+maKhach INT not null  IDENTITY(1,1) PRIMARY KEY,
+anh TEXT not null,
+hoTen TEXT not null,
+soDT TEXT not null,
+diaChi TEXT not null,
+); 
+ 
+create table HoaDonBan (
+maHDBan INT not null  IDENTITY(1,1) PRIMARY KEY,
+maNV INT    FOREIGN KEY(maNV) REFERENCES NhanVien(maNv)  ON DELETE SET NULL,
+maKH INT    FOREIGN KEY(maKH) REFERENCES KhachHang(maKhach)  ON DELETE SET NULL,
+ngayBan DATE not null,
+tongTien float not null,
+); 
+ 
+ create table ChiTietHoaDon (
+id INT not null  IDENTITY(1,1) PRIMARY KEY,
+maHD INT   FOREIGN KEY(maHD) REFERENCES HoaDonBan(maHDBan)  ON DELETE SET NULL,
+maSp INT   FOREIGN KEY(maSp) REFERENCES SanPham(maSP)  ON DELETE SET NULL,
+anh TEXT not null, 
+tenSP TEXT not null,
+soLuong int not null,
+donGia float not null,
+khuyenMai TEXT not null,
+thanhTien float not null
+);   
+ 
+
+create table ChiTietHoaDonNhap (
+id INT not null  IDENTITY(1,1) PRIMARY KEY,
+maHDNhap INT  FOREIGN KEY(maHDNhap) REFERENCES HoaDonNhapKho(maHDNhap)  ON DELETE SET NULL,
+maSp INT  FOREIGN KEY(maSp) REFERENCES SanPham(maSP)  ON DELETE SET NULL,
+anh TEXT not null,
+tenSP TEXT not null,
+soLuong int not null,
+donGia float not null,
+ thanhTien float not null
+);   
+create table NhaCungCap (
+maNCC INT not null  IDENTITY(1,1) PRIMARY KEY,
+anh TEXT not null,
+hoTen TEXT not null,
+soDT TEXT not null,
+diaChi TEXT not null,
+); 
+
+create table BangLuong (
+id INT not null  IDENTITY(1,1) PRIMARY KEY,
+maNV int  FOREIGN KEY(maNV) REFERENCES NhanVien(maNv)  ON DELETE SET NULL,
+luongCB float not null   ,
+ungLuong float not null,
+thuong float not null,
+ngayThang text not null,
+);  
+ 
+create table ThongBaoNV (
+id INT not null  IDENTITY(1,1) PRIMARY KEY,
+maNV int  FOREIGN KEY(maNV) REFERENCES NhanVien(maNv)  ON DELETE SET NULL,
+ngay text not null   ,
+message text not null,trangThai text not null   ,
+doc bit not null,
+ 
+);  
+create table HoaDonNhapKho (
+maHDNhap INT not null  IDENTITY(1,1) PRIMARY KEY,
+maNV INT   FOREIGN KEY(maNV) REFERENCES NhanVien(maNv)  ON DELETE SET NULL,
+maNcc INT    FOREIGN KEY(maNcc) REFERENCES NhaCungCap(maNCC)  ON DELETE SET NULL,
+ngayNhap DATE not null,
+tongTien float not null
+);
+   create table ThongBaoAdmin(
+  id INT not null  IDENTITY(1,1) PRIMARY KEY,
+maNV INT   FOREIGN KEY(maNV) REFERENCES NhanVien(maNv)  ON DELETE SET NULL,
+ngay text not null,
+doc bit not null
+  );
+ 
